@@ -1,8 +1,0 @@
-com.team05.sarc.app-pngs-0 C:\Users\paulo\Documents\GitHub\mobile-development-2026-2\projects\team-05\app\app\build\generated\res\pngs\debug
-com.team05.sarc.app-updated_navigation_xml-1 C:\Users\paulo\Documents\GitHub\mobile-development-2026-2\projects\team-05\app\app\build\generated\updated_navigation_xml\debug
-com.team05.sarc.app-packageDebugResources-2 C:\Users\paulo\Documents\GitHub\mobile-development-2026-2\projects\team-05\app\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.team05.sarc.app-packageDebugResources-3 C:\Users\paulo\Documents\GitHub\mobile-development-2026-2\projects\team-05\app\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.team05.sarc.app-debug-4 C:\Users\paulo\Documents\GitHub\mobile-development-2026-2\projects\team-05\app\app\build\intermediates\merged_res\debug\mergeDebugResources
-com.team05.sarc.app-debug-5 C:\Users\paulo\Documents\GitHub\mobile-development-2026-2\projects\team-05\app\app\src\debug\res
-com.team05.sarc.app-main-6 C:\Users\paulo\Documents\GitHub\mobile-development-2026-2\projects\team-05\app\app\src\main\res
-gradleHome-0 C:\Users\paulo\.gradle
