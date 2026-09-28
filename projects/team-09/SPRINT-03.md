@@ -26,16 +26,15 @@ Adicionamos a tela “Seu plano”, que apresenta a duração escolhida e orient
 
 `RitmoApp` concentra o estado `selectedMinutes` e cria o `NavController`. O `NavHost` associa as rotas `inicio` e `plano` às telas. A ação principal chama `navigate("plano")` com `launchSingleTop`, evitando cópias consecutivas do destino. “Voltar” e “Ajustar duração” chamam `popBackStack`; o Voltar do Android usa a mesma pilha. Como o estado fica acima do `NavHost`, ambas as telas recebem a mesma duração.
 
-
 ## Validação
 
-Compilação e execução aprovadas. Foram executados 7 teste(s) instrumentado(s), sem falhas. [Resultados por critério](evidence/sprint-03/validation.md), [log de compilação e testes](evidence/sprint-03/build-and-tests.txt) e [resultado JUnit](evidence/sprint-03/instrumented-tests.xml). O lint terminou com 0 erros e 9 avisos: oito sobre versões de dependências e um sobre configuração de backup. Também foi verificado o acesso às ações por rolagem em uma tela de 360×640 dp.
+Compilação e execução aprovadas. Foram executados 7 testes instrumentados, sem falhas. [Resultados por critério](evidence/sprint-03/validation.md), [log de compilação e testes](evidence/sprint-03/build-and-tests.txt) e [resultado JUnit](evidence/sprint-03/instrumented-tests.xml). O lint terminou com 0 erros e 9 avisos: oito sobre versões de dependências e um sobre configuração de backup. Também foi verificado o acesso às ações por rolagem em uma tela de 360×640 dp.
 
-![screen a](evidence/sprint-03/screen-a.png)
+![Tela inicial com duração selecionada](evidence/sprint-03/screen-a.png)
 
-![screen b](evidence/sprint-03/screen-b.png)
+![Plano de estudo](evidence/sprint-03/screen-b.png)
 
-![back preserved](evidence/sprint-03/back-preserved.png)
+![Retorno com a duração preservada](evidence/sprint-03/back-preserved.png)
 
 ## Ajustes e limitações
 
@@ -50,9 +49,8 @@ O plano apresenta orientações; não executa contagem de tempo nem mantém hist
 | LLM/tool used | Codex |
 | Task supported by the LLM | Especificação, implementação, configuração, testes e documentação |
 | Main suggestion received | Estado compartilhado acima do NavHost e retorno pela pilha de navegação. |
-| What the team changed manually | Nenhuma alteração manual adicional registrada; os ajustes foram feitos com apoio do Codex. |
+| What the team changed manually | Não houve alterações manuais adicionais; utilizamos o Codex nos ajustes descritos acima. |
 | How the result was validated | Gradle, execução no emulador, capturas via ADB e testes instrumentados |
-
 
 ## Entrega
 

@@ -26,12 +26,11 @@ Definimos o produto Ritmo e implementamos a tela inicial com nome, slogan, descr
 
 `MainActivity` aplica `RitmoTheme` e chama `WelcomeScreen`. A tela utiliza `Scaffold` e seu padding para respeitar as barras do sistema. `Column`, `Row`, `Spacer` e `Modifier` organizam o conteúdo, enquanto `Text` e `Button` apresentam a identidade e a ação principal. A rolagem permite acessar o conteúdo em telas menores.
 
-
 ## Validação
 
-Compilação e execução aprovadas. Foram executados 1 teste(s) instrumentado(s), sem falhas. [Resultados por critério](evidence/sprint-01/validation.md), [log de compilação e testes](evidence/sprint-01/build-and-tests.txt) e [resultado JUnit](evidence/sprint-01/instrumented-tests.xml).
+Compilação e execução aprovadas. Foi executado 1 teste instrumentado, sem falhas. [Resultados por critério](evidence/sprint-01/validation.md), [log de compilação e testes](evidence/sprint-01/build-and-tests.txt) e [resultado JUnit](evidence/sprint-01/instrumented-tests.xml).
 
-![first screen](evidence/sprint-01/first-screen.png)
+![Tela inicial](evidence/sprint-01/first-screen.png)
 
 ## Ajustes e limitações
 
@@ -46,9 +45,8 @@ Ação principal sem interação nesta sprint; navegação e estado serão intro
 | LLM/tool used | Codex |
 | Task supported by the LLM | Especificação, implementação, configuração, testes e documentação |
 | Main suggestion received | Separação da Activity, tema e tela inicial em componentes Compose. |
-| What the team changed manually | Nenhuma alteração manual adicional registrada; os ajustes foram feitos com apoio do Codex. |
+| What the team changed manually | Não houve alterações manuais adicionais; utilizamos o Codex nos ajustes descritos acima. |
 | How the result was validated | Gradle, execução no emulador, capturas via ADB e testes instrumentados |
-
 
 ## Entrega
 

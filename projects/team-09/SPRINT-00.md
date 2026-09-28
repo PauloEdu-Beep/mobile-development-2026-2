@@ -48,7 +48,7 @@ A `MainActivity` define a interface com `setContent`. O Gradle compila o código
 
 O projeto foi clonado e a branch foi criada antes da implementação.
 
-![android running](evidence/sprint-00/android-running.png)
+![Aplicação mínima em execução](evidence/sprint-00/android-running.png)
 
 ## Ajustes e limitações
 
@@ -63,15 +63,12 @@ Aplicação mínima para verificar o ambiente.
 | LLM/tool used | Codex |
 | Task supported by the LLM | Especificação, implementação, configuração, testes e documentação |
 | Main suggestion received | Configuração do SDK, versões do projeto e execução com Gradle e ADB. |
-| What the team changed manually | Nenhuma alteração manual adicional registrada; os ajustes foram feitos com apoio do Codex. |
+| What the team changed manually | Não houve alterações manuais adicionais; utilizamos o Codex nos ajustes descritos acima. |
 | How the result was validated | Gradle, execução no emulador, capturas via ADB |
-
 
 ## Entrega
 
 Branch: `team-09/sprint-00`. [Pull Request #19](https://github.com/brenofeliix/mobile-development-2026-2/pull/19), com destino à `main` do repositório da disciplina.
-
-
 
 ## Definition of Done
 
