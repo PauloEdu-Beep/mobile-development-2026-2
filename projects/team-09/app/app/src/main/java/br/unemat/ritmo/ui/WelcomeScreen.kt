@@ -6,7 +6,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun WelcomeScreen(modifier: Modifier = Modifier) {
+    var selectedMinutes by rememberSaveable { mutableStateOf(25) }
     Scaffold(containerColor = Paper) { padding ->
         Column(
             modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(24.dp),
@@ -29,10 +31,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
                     style = MaterialTheme.typography.bodyLarge, color = Muted)
             }
             FocusCard()
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Um pequeno começo já conta.", style = MaterialTheme.typography.titleMedium)
-                Text("Escolha um assunto, reserve um tempo e dê o primeiro passo.", color = Muted)
-            }
+            DurationPicker(selectedMinutes = selectedMinutes, onSelect = { selectedMinutes = it })
             Button(onClick = {}, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp), shape = RoundedCornerShape(18.dp)) {
                 Text("Planejar meu estudo", style = MaterialTheme.typography.titleMedium)
             }
