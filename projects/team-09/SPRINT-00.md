@@ -53,7 +53,9 @@ Fork é a cópia remota na conta do aluno; clone é a cópia local; branch isola
 
 - [x] Ambiente preparado, app compilado e executado.
 - [x] Evidência e relatório incluídos.
-- [ ] Alunos revisaram e conseguem explicar o trabalho.
+A explicação dos alunos será avaliada presencialmente ao final da disciplina.
 - [ ] PR aprovado e integrado pelo professor.
 
-Envio preparado em branch própria; consultar o índice de entregas ao concluir a preparação das sprints.
+Envio realizado em branch própria por Pull Request ao repositório do professor.
+
+**Entrega pelo repositório:** [PR #19](https://github.com/brenofeliix/mobile-development-2026-2/pull/19), submetido ao professor. A avaliação presencial ocorre ao final da disciplina.
