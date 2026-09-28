@@ -51,6 +51,10 @@ O Codex auxiliou na especificação, implementação, configuração, testes e d
 
 ## Referências
 
+Para revisar e apresentar, consulte o [guia de apresentação](docs/GUIA-DE-APRESENTACAO.md). O script `scripts/validar.ps1 -ComEmulador` executa build, lint e os testes com um dispositivo conectado.
+
+As SPECs e evidências de sprints anteriores registram suas respectivas branches. Na sprint 3, a ação principal passou a navegar e o estado da sprint 2 foi elevado a `RitmoApp`. A entrega atual usa a branch `team-09/sprint-03`.
+
 - [Repositório da disciplina](https://github.com/brenofeliix/mobile-development-2026-2)
 - PDF fornecido: `Sprint_01_Compose_BCN_Move.pdf`, especialmente slides 5–10 e 23–28. BCN Move é exemplo didático; Ritmo é o produto escolhido pela equipe.
 - [Estado em Compose](https://developer.android.com/develop/ui/compose/state)

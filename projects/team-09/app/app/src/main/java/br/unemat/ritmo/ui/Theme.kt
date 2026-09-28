@@ -21,6 +21,7 @@ fun RitmoTheme(content: @Composable () -> Unit) {
         colorScheme = lightColorScheme(
             primary = Forest, onPrimary = Color.White,
             primaryContainer = Lime, onPrimaryContainer = Forest,
+            secondaryContainer = Lime, onSecondaryContainer = Forest,
             background = Paper, onBackground = Forest,
             surface = Paper, onSurface = Forest,
             surfaceVariant = Color(0xFFE8ECE2), onSurfaceVariant = Muted,

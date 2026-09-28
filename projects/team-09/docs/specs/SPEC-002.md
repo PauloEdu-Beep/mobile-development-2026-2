@@ -69,6 +69,8 @@ Navegação, cronômetro, banco, histórico, login, APIs e formulários.
 
 ## 8. Requirement Traceability
 
+Esta SPEC descreve a branch da sprint 2. Na sprint 3, `selectedMinutes` foi elevado de `WelcomeScreen` para `RitmoApp` para compartilhar a escolha entre destinos; os critérios de seleção e resumo continuam cobertos por `DurationTest`.
+
 | Requirement | Implemented In | Acceptance Criterion | Evidence |
 | --- | --- | --- | --- |
 | FR-01 | `app/src/main/java/br/unemat/ritmo/ui/WelcomeScreen.kt / rememberSaveable e mutableStateOf` (dentro de `app/`) | AC-01 | [Validação](../../evidence/sprint-02/validation.md) e capturas abaixo |

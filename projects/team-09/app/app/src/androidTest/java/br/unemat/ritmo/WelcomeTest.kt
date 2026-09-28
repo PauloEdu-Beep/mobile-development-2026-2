@@ -12,7 +12,7 @@ class WelcomeTest {
         compose.onNodeWithText("Ritmo").assertIsDisplayed()
         compose.onNodeWithText("Estude no\nseu ritmo.").assertIsDisplayed()
         compose.onNodeWithText("Uma sessão de cada vez.", substring = true).assertIsDisplayed()
-        compose.onNodeWithText("Planejar meu estudo").performScrollTo().assertIsDisplayed().performClick()
+        compose.onNodeWithText("Planejar meu estudo").performScrollTo().assertIsDisplayed()
         compose.onNodeWithText("Ritmo").assertExists()
     }
 }
