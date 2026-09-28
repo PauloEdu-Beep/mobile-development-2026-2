@@ -56,6 +56,6 @@ Os testes estão em `app/app/src/androidTest/java/br/unemat/ritmo/`: `WelcomeTes
 3. Explique o que aconteceria se o estado fosse criado apenas dentro de `PlanScreen`.
 4. Explique por que as capturas das sprints 1 e 2 têm comportamento anterior ao da sprint 3. Cada branch preserva um incremento, e suas SPECs descrevem aquele momento.
 
-## Revisão antes de marcar o PR como pronto
+## Preparação para a avaliação presencial
 
-Cada aluno deve ler as SPECs e funções, executar os critérios no emulador e registrar honestamente o que revisou ou alterou. Atualizem os campos de revisão humana nas SPECs, relatórios e PRs somente depois disso. Mantenham o mesmo PR e a mesma branch ao corrigir; não façam merge no repositório do professor.
+Cada aluno deve ler as SPECs e funções, executar os critérios no emulador e registrar honestamente o que revisou ou alterou. Esse estudo prepara a avaliação presencial ao final da disciplina e não impede o envio do trabalho pelo GitHub. Mantenham o mesmo PR e a mesma branch ao corrigir; não façam merge no repositório do professor.

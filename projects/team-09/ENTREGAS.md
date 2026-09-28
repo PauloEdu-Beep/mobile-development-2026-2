@@ -9,19 +9,19 @@ Preparação técnica concluída até a sprint 3 em 28/09/2026. Fork: [botist/mo
 | 02 | `team-09/sprint-02` | [#21](https://github.com/brenofeliix/mobile-development-2026-2/pull/21) | Seleção reativa, restauração e 3 testes |
 | 03 | `team-09/sprint-03` | [#22](https://github.com/brenofeliix/mobile-development-2026-2/pull/22) | Navegação, regressão, 7 testes e lint sem erros |
 
-Todos os PRs apontam para `main` do professor, alteram apenas `projects/team-09/` e foram abertos como **rascunhos**. Nenhum foi integrado pela equipe.
+Todos os PRs apontam para `main` do professor, alteram apenas `projects/team-09/` e estão **prontos para avaliação do professor**. Nenhum foi integrado pela equipe.
 
 ## O que está pronto
 
 Projeto Kotlin/Compose, três SPECs, relatórios das sprints 00–03, capturas reais de cada incremento, logs de compilação e testes, guia de apresentação e script de validação. A versão atual é 0.3.0 e está na branch `team-09/sprint-03`.
 
-## O que falta para concluir a entrega acadêmica
+## Após a entrega pelo repositório
 
-1. Fernando e João revisarem o código, executarem os critérios e registrarem a revisão humana nas SPECs, relatórios e PRs. O [guia](docs/GUIA-DE-APRESENTACAO.md) serve de roteiro de estudo.
+1. A explicação pelos integrantes será avaliada presencialmente ao final da disciplina, conforme esclarecido pela equipe. O [guia](docs/GUIA-DE-APRESENTACAO.md) serve de roteiro de estudo; essa etapa não bloqueia o envio pelo GitHub.
 2. Conferir com o professor a identificação Team 09, escolhida porque 07 e 08 já estavam ocupadas.
-3. Marcar o PR inicial como pronto quando revisado e aguardar o professor integrar as sprints em ordem. As branches seguintes contêm os incrementos anteriores; após cada integração, conferir o diff e resolver eventuais conflitos no mesmo PR.
+3. Aguardar a revisão e integração dos PRs pelo professor em ordem. As branches seguintes contêm os incrementos anteriores; após cada integração, conferir o diff e resolver eventuais conflitos no mesmo PR.
 
-O enunciado exige integração da sprint anterior antes da seguinte. A preparação adiantada até a sprint 3 foi feita a pedido da equipe; a revisão externa não foi simulada. Os rascunhos tornam os incrementos disponíveis para revisão sem declarar as etapas humanas como concluídas.
+O enunciado exige integração da sprint anterior antes da seguinte. A preparação adiantada até a sprint 3 foi feita a pedido da equipe; a revisão externa não foi simulada. Os PRs estão disponíveis para avaliação do professor; a avaliação presencial permanece separada da entrega no repositório.
 
 ## Abrir o projeto
 

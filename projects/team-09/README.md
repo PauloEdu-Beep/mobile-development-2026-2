@@ -41,7 +41,7 @@ No PowerShell, a partir de `app/`:
 | `team-09/sprint-02` | SPEC-002 e escolha reativa de duração |
 | `team-09/sprint-03` | SPEC-003 e navegação para o plano |
 
-Os incrementos foram preparados em sequência localmente, antes da revisão do professor. Por isso as branches posteriores incluem os commits anteriores. A regra oficial de integração da sprint anterior ainda depende do professor; nenhum merge será feito pela equipe. Os PRs devem permanecer em rascunho até revisão humana do código e da documentação.
+Os incrementos foram preparados em sequência localmente, antes da revisão do professor. Por isso as branches posteriores incluem os commits anteriores. A regra oficial de integração da sprint anterior ainda depende do professor; nenhum merge será feito pela equipe. Os PRs estão submetidos para avaliação do professor. A explicação pelos integrantes será avaliada presencialmente ao final da disciplina, conforme esclarecido pela equipe, e não é condição para o envio pelo GitHub.
 
 ## Escopo
 

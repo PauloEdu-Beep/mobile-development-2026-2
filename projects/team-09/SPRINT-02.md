@@ -30,7 +30,7 @@ Cada FR aponta para seu arquivo/função, AC e evidência na seção 8 da SPEC. 
 
 Build e execução aprovados no emulador Pixel 6, Android 15/API 35. [Resultados por AC](evidence/sprint-02/validation.md), [log Gradle](evidence/sprint-02/build-and-tests.txt) e [testes instrumentados](evidence/sprint-02/instrumented-tests.xml).
 
-Os critérios técnicos do enunciado foram verificados: especificação, comportamento desta sprint, regressão das funcionalidades anteriores, build, execução e capturas. O critério de explicação pelos integrantes está **pendente de revisão humana**, e não é comprovado pelos testes.
+Os critérios técnicos do enunciado foram verificados: especificação, comportamento desta sprint, regressão das funcionalidades anteriores, build, execução e capturas. A explicação pelos integrantes será avaliada presencialmente ao final da disciplina; ela não é uma pendência da entrega pelo repositório nem é comprovada pelos testes.
 
 ![before-interaction.png](evidence/sprint-02/before-interaction.png)
 ![after-interaction.png](evidence/sprint-02/after-interaction.png)
@@ -60,7 +60,9 @@ As sprints foram preparadas em sequência antes da revisão do professor, por so
 - [x] Produto e escopo documentados; SPEC completa.
 - [x] Funcionalidade implementada; compilação e execução verificadas.
 - [x] Testes e evidências incluídos; uso de IA declarado.
-- [ ] Revisão humana, validação pessoal e explicação pelos dois integrantes.
+A explicação pelos dois integrantes pertence à avaliação presencial ao final da disciplina, separada do envio pelo GitHub.
 - [ ] Aprovação e integração pelo professor.
 
-O código e os artefatos técnicos estão preparados; a conclusão acadêmica depende das etapas humanas acima.
+Código, especificações, relatórios e evidências foram entregues pelo GitHub. A avaliação presencial ocorrerá ao final da disciplina; a revisão e integração dos PRs cabem ao professor.
+
+**Entrega pelo repositório:** [PR #21](https://github.com/brenofeliix/mobile-development-2026-2/pull/21), submetido ao professor. A avaliação presencial ocorre ao final da disciplina.
