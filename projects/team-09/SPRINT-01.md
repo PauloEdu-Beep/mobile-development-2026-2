@@ -6,10 +6,10 @@ Team 09 — Fernando Henrique Cobianchi (20220059497) e João Victor R. Peres (2
 
 ## Produto
 
-**Nome:** Ritmo.  
-**Problema:** Estudantes com tempo limitado podem adiar o estudo por não saberem estruturar uma sessão curta.  
-**Público:** Universitários, especialmente alunos que conciliam aulas e outras atividades.  
-**Objetivo:** Ajudar o estudante a transformar minutos disponíveis em um plano simples de concentração.  
+**Nome:** Ritmo.<br>
+**Problema:** Estudantes com tempo limitado podem adiar o estudo por não saberem estruturar uma sessão curta.<br>
+**Público:** Universitários, especialmente alunos que conciliam aulas e outras atividades.<br>
+**Objetivo:** Ajudar o estudante a transformar minutos disponíveis em um plano simples de concentração.<br>
 **Funcionalidades iniciais:** apresentação (sprint 1), escolha de duração (sprint 2) e plano com navegação (sprint 3).
 
 ## Objetivo e implementação desta sprint

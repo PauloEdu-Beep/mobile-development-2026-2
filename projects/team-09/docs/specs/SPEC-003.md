@@ -1,14 +1,14 @@
 # SPEC-003 — Navegação para o plano da sessão
 
-> **Team:** Team 09  
-> **Sprint:** Sprint 03  
-> **Status:** Validada tecnicamente; revisão humana pendente  
+> **Team:** Team 09<br>
+> **Sprint:** Sprint 03<br>
+> **Status:** Validada tecnicamente; revisão humana pendente<br>
 > **Related Sprint:** [SPRINT-03.md](../../SPRINT-03.md)
 
 ## 1. Context
 
-**Problema:** Estudantes com pouco tempo disponível podem adiar o estudo por não saberem como organizar uma sessão curta.  
-**Usuários:** Estudantes universitários, incluindo alunos da UNEMAT.  
+**Problema:** Estudantes com pouco tempo disponível podem adiar o estudo por não saberem como organizar uma sessão curta.<br>
+**Usuários:** Estudantes universitários, incluindo alunos da UNEMAT.<br>
 **Contexto:** Intervalos entre atividades em que o estudante quer planejar um período de concentração.
 
 ## 2. Objective
@@ -53,27 +53,27 @@ Cronômetro, execução de sessão, persistência entre novas sessões do app, b
 
 ### AC-01
 
-**Related requirement:** FR-01  
+**Related requirement:** FR-01<br>
 **Condition:** Um lançamento novo abre inicio com Ritmo e seletor visíveis.
 
 ### AC-02
 
-**Related requirement:** FR-02  
+**Related requirement:** FR-02<br>
 **Condition:** Tocar Planejar meu estudo abre plano, com Seu plano visível.
 
 ### AC-03
 
-**Related requirement:** FR-03  
+**Related requirement:** FR-03<br>
 **Condition:** Selecionar 15, 25 ou 45 minutos e navegar mostra a duração correspondente e as três orientações.
 
 ### AC-04
 
-**Related requirement:** FR-04  
+**Related requirement:** FR-04<br>
 **Condition:** Cada uma das três formas de retorno leva à tela inicial; o Voltar do Android na tela inicial encerra a Activity normalmente.
 
 ### AC-05
 
-**Related requirement:** FR-05  
+**Related requirement:** FR-05<br>
 **Condition:** Após voltar de plano, a seleção permanece; repetir o ciclo e toques rápidos não cria uma cadeia de planos duplicados.
 
 ## 8. Requirement Traceability

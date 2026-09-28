@@ -1,14 +1,14 @@
 # SPEC-001 — Apresentação do Ritmo
 
-> **Team:** Team 09  
-> **Sprint:** Sprint 01  
-> **Status:** Validada tecnicamente; revisão humana pendente  
+> **Team:** Team 09<br>
+> **Sprint:** Sprint 01<br>
+> **Status:** Validada tecnicamente; revisão humana pendente<br>
 > **Related Sprint:** [SPRINT-01.md](../../SPRINT-01.md)
 
 ## 1. Context
 
-**Problema:** Estudantes com pouco tempo disponível podem adiar o estudo por não saberem como organizar uma sessão curta.  
-**Usuários:** Estudantes universitários, incluindo alunos da UNEMAT.  
+**Problema:** Estudantes com pouco tempo disponível podem adiar o estudo por não saberem como organizar uma sessão curta.<br>
+**Usuários:** Estudantes universitários, incluindo alunos da UNEMAT.<br>
 **Contexto:** Intervalos entre atividades em que o estudante quer planejar um período de concentração.
 
 ## 2. Objective
@@ -49,22 +49,22 @@ Interação, navegação, cronômetro, banco, login, notificações, APIs e form
 
 ### AC-01
 
-**Related requirement:** FR-01  
+**Related requirement:** FR-01<br>
 **Condition:** O texto Ritmo é visível na abertura.
 
 ### AC-02
 
-**Related requirement:** FR-02  
+**Related requirement:** FR-02<br>
 **Condition:** O slogan Estude no seu ritmo. e a descrição Uma sessão de cada vez. estão visíveis.
 
 ### AC-03
 
-**Related requirement:** FR-03  
+**Related requirement:** FR-03<br>
 **Condition:** Planejar meu estudo está visível; o toque não navega nem causa erro nesta sprint.
 
 ### AC-04
 
-**Related requirement:** FR-04  
+**Related requirement:** FR-04<br>
 **Condition:** Tela executa sem crash, respeita as barras do sistema e permite alcançar o conteúdo por rolagem.
 
 ## 8. Requirement Traceability

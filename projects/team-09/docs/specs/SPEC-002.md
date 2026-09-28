@@ -1,14 +1,14 @@
 # SPEC-002 — Escolha da duração de estudo
 
-> **Team:** Team 09  
-> **Sprint:** Sprint 02  
-> **Status:** Validada tecnicamente; revisão humana pendente  
+> **Team:** Team 09<br>
+> **Sprint:** Sprint 02<br>
+> **Status:** Validada tecnicamente; revisão humana pendente<br>
 > **Related Sprint:** [SPRINT-02.md](../../SPRINT-02.md)
 
 ## 1. Context
 
-**Problema:** Estudantes com pouco tempo disponível podem adiar o estudo por não saberem como organizar uma sessão curta.  
-**Usuários:** Estudantes universitários, incluindo alunos da UNEMAT.  
+**Problema:** Estudantes com pouco tempo disponível podem adiar o estudo por não saberem como organizar uma sessão curta.<br>
+**Usuários:** Estudantes universitários, incluindo alunos da UNEMAT.<br>
 **Contexto:** Intervalos entre atividades em que o estudante quer planejar um período de concentração.
 
 ## 2. Objective
@@ -49,22 +49,22 @@ Navegação, cronômetro, banco, histórico, login, APIs e formulários.
 
 ### AC-01
 
-**Related requirement:** FR-01  
+**Related requirement:** FR-01<br>
 **Condition:** Após limpar os dados e abrir o app, 25 min está selecionado e o resumo informa 25 minutos.
 
 ### AC-02
 
-**Related requirement:** FR-02  
+**Related requirement:** FR-02<br>
 **Condition:** Selecionar 15 min marca apenas essa opção; selecionar 45 min marca apenas 45 min.
 
 ### AC-03
 
-**Related requirement:** FR-03  
+**Related requirement:** FR-03<br>
 **Condition:** Após cada toque, o resumo mostra exatamente a duração selecionada.
 
 ### AC-04
 
-**Related requirement:** FR-04  
+**Related requirement:** FR-04<br>
 **Condition:** Repetir 15 → 45 → 25 três vezes mantém o resultado correto; nome, slogan e ação principal continuam presentes.
 
 ## 8. Requirement Traceability

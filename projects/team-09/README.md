@@ -2,6 +2,8 @@
 
 **Estude no seu ritmo. Uma sessão de cada vez.**
 
+[Entregas e Pull Requests](ENTREGAS.md) · [Guia de apresentação](docs/GUIA-DE-APRESENTACAO.md)
+
 Aplicativo nativo Android para estudantes que precisam transformar o tempo disponível em um plano simples de estudo. Desenvolvido para FALECT-CC-040, UNEMAT/AIA, 2026.2, professor Breno Felix de Sousa.
 
 ## Equipe
