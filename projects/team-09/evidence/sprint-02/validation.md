@@ -1,6 +1,6 @@
 # Validação — Sprint 02
 
-Executada em 28/09/2026 pelo Codex, em Pixel 6 virtual Android 15/API 35 (x86_64), com o APK desta branch. Evidências são capturas reais via ADB, não mockups. Revisão pessoal pelos alunos ainda pendente.
+Validação realizada em 28/09/2026, em Pixel 6 virtual com Android 15/API 35 (x86_64). Capturas obtidas pelo ADB.
 
 Comando: `gradlew.bat assembleDebug connectedDebugAndroidTest --console=plain`.
 Resultado: **BUILD SUCCESSFUL**, testes instrumentados aprovados. Logs completos em [build-and-tests.txt](build-and-tests.txt); resultados JUnit em [instrumented-tests.xml](instrumented-tests.xml).

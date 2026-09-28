@@ -1,71 +1,69 @@
 # SPRINT 03 — Navigation & Multiple Screens
 
-## Equipe
+**Equipe 09:** Fernando Henrique Cobianchi e João Victor R. Peres.
 
-Team 09 — Fernando Henrique Cobianchi (20220059497) e João Victor R. Peres (20230079303). Disciplina FALECT-CC-040, UNEMAT/AIA, 2026.2; professor Breno Felix de Sousa.
+## Objetivo e resultado
 
-## Produto
+Adicionamos a tela “Seu plano”, que apresenta a duração escolhida e orientações para preparar o ambiente, concentrar-se e fazer uma pausa. O retorno à tela inicial preserva a duração selecionada.
 
-**Nome:** Ritmo.<br>
-**Problema:** Estudantes com tempo limitado podem adiar o estudo por não saberem estruturar uma sessão curta.<br>
-**Público:** Universitários, especialmente alunos que conciliam aulas e outras atividades.<br>
-**Objetivo:** Ajudar o estudante a transformar minutos disponíveis em um plano simples de concentração.<br>
-**Funcionalidades iniciais:** apresentação (sprint 1), escolha de duração (sprint 2) e plano com navegação (sprint 3).
+## Definição do produto
 
-## Objetivo e implementação desta sprint
+**Nome:** Ritmo.
 
-Navegar entre a escolha de duração e o plano de estudo.
+**Problema:** Estudantes com tempo limitado podem adiar o estudo por não saberem estruturar uma sessão curta.
 
-Duas telas com responsabilidades distintas: inicio apresenta e configura; plano mostra a duração e orientações para preparar, concentrar e pausar.
+**Público:** Estudantes universitários.
 
-Especificação: [SPEC-003](docs/specs/SPEC-003.md), elaborada antes da implementação, seguindo as 16 seções do template da disciplina.
+**Objetivo:** Ajudar a transformar minutos disponíveis em um plano de estudo.
 
-## Explicação da implementação
+**Funcionalidades iniciais:** apresentação, escolha de duração e consulta ao plano, introduzidas nas sprints 1, 2 e 3.
 
-RitmoApp cria rememberNavController e NavHost com inicio e plano. Planejar meu estudo chama navigate("plano") com launchSingleTop. O estado fica acima do NavHost e é passado às telas. Voltar e Ajustar duração chamam popBackStack(); o Navigation Compose integra o Voltar do Android. Na raiz, o Voltar encerra a Activity. O plano não é cronômetro.
+## Especificação
 
-Cada FR aponta para seu arquivo/função, AC e evidência na seção 8 da SPEC. As telas ficam em `app/app/src/main/java/br/unemat/ritmo/ui/`.
+[SPEC-003](docs/specs/SPEC-003.md). A seção de rastreabilidade relaciona cada requisito ao código, critério de aceitação e evidência.
+
+## Implementação
+
+`RitmoApp` concentra o estado `selectedMinutes` e cria o `NavController`. O `NavHost` associa as rotas `inicio` e `plano` às telas. A ação principal chama `navigate("plano")` com `launchSingleTop`, evitando cópias consecutivas do destino. “Voltar” e “Ajustar duração” chamam `popBackStack`; o Voltar do Android usa a mesma pilha. Como o estado fica acima do `NavHost`, ambas as telas recebem a mesma duração.
+
 
 ## Validação
 
-Build e execução aprovados no emulador Pixel 6, Android 15/API 35. [Resultados por AC](evidence/sprint-03/validation.md), [log Gradle](evidence/sprint-03/build-and-tests.txt) e [testes instrumentados](evidence/sprint-03/instrumented-tests.xml).
+Compilação e execução aprovadas. Foram executados 7 teste(s) instrumentado(s), sem falhas. [Resultados por critério](evidence/sprint-03/validation.md), [log de compilação e testes](evidence/sprint-03/build-and-tests.txt) e [resultado JUnit](evidence/sprint-03/instrumented-tests.xml). O lint terminou com 0 erros e 9 avisos: oito sobre versões de dependências e um sobre configuração de backup. Também foi verificado o acesso às ações por rolagem em uma tela de 360×640 dp.
 
-Os critérios técnicos do enunciado foram verificados: especificação, comportamento desta sprint, regressão das funcionalidades anteriores, build, execução e capturas. A explicação pelos integrantes será avaliada presencialmente ao final da disciplina; ela não é uma pendência da entrega pelo repositório nem é comprovada pelos testes.
+![screen a](evidence/sprint-03/screen-a.png)
 
-![screen-a.png](evidence/sprint-03/screen-a.png)
-![screen-b.png](evidence/sprint-03/screen-b.png)
-![back-preserved.png](evidence/sprint-03/back-preserved.png)
+![screen b](evidence/sprint-03/screen-b.png)
+
+![back preserved](evidence/sprint-03/back-preserved.png)
+
+## Ajustes e limitações
+
+Com apoio do Codex, adicionamos a dependência de Espresso aos testes e isolamos windowLightNavigationBar em values-v27 para manter minSdk 24.
+
+O plano apresenta orientações; não executa contagem de tempo nem mantém histórico.
 
 ## Uso de IA
 
 | Item | Resposta |
 | --- | --- |
 | LLM/tool used | Codex |
-| Task supported by the LLM | SPEC, código, explicação, testes, build, capturas e relatório |
-| Main suggestion received | Implementar somente o incremento especificado, com componentes separados e critérios verificáveis |
-| What the team changed manually | Não declarado; revisão humana pelos alunos ainda pendente |
-| How the result was validated | Compilação, testes instrumentados no Android, interação por ADB e inspeção visual pela ferramenta |
+| Task supported by the LLM | Especificação, implementação, configuração, testes e documentação |
+| Main suggestion received | Estado compartilhado acima do NavHost e retorno pela pilha de navegação. |
+| What the team changed manually | Nenhuma alteração manual adicional registrada; os ajustes foram feitos com apoio do Codex. |
+| How the result was validated | Gradle, execução no emulador, capturas via ADB e testes instrumentados |
 
-## Limitações
 
-`lintDebug` aprovado com 0 erros e 9 avisos (atualizações de dependências e sugestão de configuração de backup). Foi corrigida a exigência de API 27 no tema base usando um recurso específico `values-v27`. Também foi verificado o alcance das ações por rolagem em tela de 360×640 dp.
+## Entrega
 
-Sem cronômetro, banco, login, rede ou histórico. O app orienta o planejamento, não mede o tempo de estudo. Estado salvo de interface não equivale a persistência permanente. O conteúdo está em português e o tema claro é fixo nesta entrega.
+Branch: `team-09/sprint-03`. [Pull Request #22](https://github.com/brenofeliix/mobile-development-2026-2/pull/22), com destino à `main` do repositório da disciplina.
 
-## Git e entrega
-
-Branch `team-09/sprint-03`, criada antes das alterações. Fork `botist/mobile-development-2026-2`; destino do PR: `brenofeliix/mobile-development-2026-2`, branch `main`. Nenhum merge é feito pela equipe.
-
-As sprints foram preparadas em sequência antes da revisão do professor, por solicitação da equipe. A branch inclui os incrementos anteriores; os PRs posteriores devem aguardar a integração dos anteriores. A exigência oficial de confirmar o merge antes de iniciar a sprint seguinte ainda não foi cumprida; isso está explicitado, sem simular aprovação.
+Este incremento inclui o conteúdo das sprints anteriores; a revisão pode seguir a ordem dos PRs.
 
 ## Definition of Done
 
-- [x] Produto e escopo documentados; SPEC completa.
-- [x] Funcionalidade implementada; compilação e execução verificadas.
-- [x] Testes e evidências incluídos; uso de IA declarado.
-A explicação pelos dois integrantes pertence à avaliação presencial ao final da disciplina, separada do envio pelo GitHub.
-- [ ] Aprovação e integração pelo professor.
-
-Código, especificações, relatórios e evidências foram entregues pelo GitHub. A avaliação presencial ocorrerá ao final da disciplina; a revisão e integração dos PRs cabem ao professor.
-
-**Entrega pelo repositório:** [PR #22](https://github.com/brenofeliix/mobile-development-2026-2/pull/22), submetido ao professor. A avaliação presencial ocorre ao final da disciplina.
+- [x] Especificação e funcionalidade implementadas.
+- [x] Compilação e execução verificadas.
+- [x] Evidências e resultados registrados.
+- [x] Uso de IA documentado.
+- [x] Branch publicada e PR enviado.

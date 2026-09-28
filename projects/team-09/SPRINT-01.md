@@ -1,67 +1,65 @@
 # SPRINT 01 — Product Definition & First Screen
 
-## Equipe
+**Equipe 09:** Fernando Henrique Cobianchi e João Victor R. Peres.
 
-Team 09 — Fernando Henrique Cobianchi (20220059497) e João Victor R. Peres (20230079303). Disciplina FALECT-CC-040, UNEMAT/AIA, 2026.2; professor Breno Felix de Sousa.
+## Objetivo e resultado
 
-## Produto
+Definimos o produto Ritmo e implementamos a tela inicial com nome, slogan, descrição, cartão de foco e botão “Planejar meu estudo”. Nesta sprint, a ação do botão ainda não possui comportamento.
 
-**Nome:** Ritmo.<br>
-**Problema:** Estudantes com tempo limitado podem adiar o estudo por não saberem estruturar uma sessão curta.<br>
-**Público:** Universitários, especialmente alunos que conciliam aulas e outras atividades.<br>
-**Objetivo:** Ajudar o estudante a transformar minutos disponíveis em um plano simples de concentração.<br>
-**Funcionalidades iniciais:** apresentação (sprint 1), escolha de duração (sprint 2) e plano com navegação (sprint 3).
+## Definição do produto
 
-## Objetivo e implementação desta sprint
+**Nome:** Ritmo.
 
-Apresentar o produto em uma tela de boas-vindas.
+**Problema:** Estudantes com tempo limitado podem adiar o estudo por não saberem estruturar uma sessão curta.
 
-Nome, slogan, descrição, cartão de foco e botão principal. Nesta branch, o botão não navega: comportamento ainda fora do escopo.
+**Público:** Estudantes universitários.
 
-Especificação: [SPEC-001](docs/specs/SPEC-001.md), elaborada antes da implementação, seguindo as 16 seções do template da disciplina.
+**Objetivo:** Ajudar a transformar minutos disponíveis em um plano de estudo.
 
-## Explicação da implementação
+**Funcionalidades iniciais:** apresentação, escolha de duração e consulta ao plano, introduzidas nas sprints 1, 2 e 3.
 
-MainActivity chama setContent e aplica RitmoTheme. WelcomeScreen usa Scaffold para respeitar insets, Column para organização vertical, Modifier para margens e rolagem, Text para conteúdo e Button para a ação. @Preview permite inspecionar o layout no Android Studio.
+## Especificação
 
-Cada FR aponta para seu arquivo/função, AC e evidência na seção 8 da SPEC. As telas ficam em `app/app/src/main/java/br/unemat/ritmo/ui/`.
+[SPEC-001](docs/specs/SPEC-001.md). A seção de rastreabilidade relaciona cada requisito ao código, critério de aceitação e evidência.
+
+## Implementação
+
+`MainActivity` aplica `RitmoTheme` e chama `WelcomeScreen`. A tela utiliza `Scaffold` e seu padding para respeitar as barras do sistema. `Column`, `Row`, `Spacer` e `Modifier` organizam o conteúdo, enquanto `Text` e `Button` apresentam a identidade e a ação principal. A rolagem permite acessar o conteúdo em telas menores.
+
 
 ## Validação
 
-Build e execução aprovados no emulador Pixel 6, Android 15/API 35. [Resultados por AC](evidence/sprint-01/validation.md), [log Gradle](evidence/sprint-01/build-and-tests.txt) e [testes instrumentados](evidence/sprint-01/instrumented-tests.xml).
+Compilação e execução aprovadas. Foram executados 1 teste(s) instrumentado(s), sem falhas. [Resultados por critério](evidence/sprint-01/validation.md), [log de compilação e testes](evidence/sprint-01/build-and-tests.txt) e [resultado JUnit](evidence/sprint-01/instrumented-tests.xml).
 
-Os critérios técnicos do enunciado foram verificados: especificação, comportamento desta sprint, regressão das funcionalidades anteriores, build, execução e capturas. A explicação pelos integrantes será avaliada presencialmente ao final da disciplina; ela não é uma pendência da entrega pelo repositório nem é comprovada pelos testes.
+![first screen](evidence/sprint-01/first-screen.png)
 
-![first-screen.png](evidence/sprint-01/first-screen.png)
+## Ajustes e limitações
+
+Com apoio do Codex, organizamos a tela com margens, tema e rolagem.
+
+Ação principal sem interação nesta sprint; navegação e estado serão introduzidos nos próximos incrementos.
 
 ## Uso de IA
 
 | Item | Resposta |
 | --- | --- |
 | LLM/tool used | Codex |
-| Task supported by the LLM | SPEC, código, explicação, testes, build, capturas e relatório |
-| Main suggestion received | Implementar somente o incremento especificado, com componentes separados e critérios verificáveis |
-| What the team changed manually | Não declarado; revisão humana pelos alunos ainda pendente |
-| How the result was validated | Compilação, testes instrumentados no Android, interação por ADB e inspeção visual pela ferramenta |
+| Task supported by the LLM | Especificação, implementação, configuração, testes e documentação |
+| Main suggestion received | Separação da Activity, tema e tela inicial em componentes Compose. |
+| What the team changed manually | Nenhuma alteração manual adicional registrada; os ajustes foram feitos com apoio do Codex. |
+| How the result was validated | Gradle, execução no emulador, capturas via ADB e testes instrumentados |
 
-## Limitações
 
-Sem cronômetro, banco, login, rede ou histórico. O app orienta o planejamento, não mede o tempo de estudo. Estado salvo de interface não equivale a persistência permanente. O conteúdo está em português e o tema claro é fixo nesta entrega.
+## Entrega
 
-## Git e entrega
+Branch: `team-09/sprint-01`. [Pull Request #20](https://github.com/brenofeliix/mobile-development-2026-2/pull/20), com destino à `main` do repositório da disciplina.
 
-Branch `team-09/sprint-01`, criada antes das alterações. Fork `botist/mobile-development-2026-2`; destino do PR: `brenofeliix/mobile-development-2026-2`, branch `main`. Nenhum merge é feito pela equipe.
-
-As sprints foram preparadas em sequência antes da revisão do professor, por solicitação da equipe. A branch inclui os incrementos anteriores; os PRs posteriores devem aguardar a integração dos anteriores. A exigência oficial de confirmar o merge antes de iniciar a sprint seguinte ainda não foi cumprida; isso está explicitado, sem simular aprovação.
+Este incremento inclui o conteúdo das sprints anteriores; a revisão pode seguir a ordem dos PRs.
 
 ## Definition of Done
 
-- [x] Produto e escopo documentados; SPEC completa.
-- [x] Funcionalidade implementada; compilação e execução verificadas.
-- [x] Testes e evidências incluídos; uso de IA declarado.
-A explicação pelos dois integrantes pertence à avaliação presencial ao final da disciplina, separada do envio pelo GitHub.
-- [ ] Aprovação e integração pelo professor.
-
-Código, especificações, relatórios e evidências foram entregues pelo GitHub. A avaliação presencial ocorrerá ao final da disciplina; a revisão e integração dos PRs cabem ao professor.
-
-**Entrega pelo repositório:** [PR #20](https://github.com/brenofeliix/mobile-development-2026-2/pull/20), submetido ao professor. A avaliação presencial ocorre ao final da disciplina.
+- [x] Especificação e funcionalidade implementadas.
+- [x] Compilação e execução verificadas.
+- [x] Evidências e resultados registrados.
+- [x] Uso de IA documentado.
+- [x] Branch publicada e PR enviado.

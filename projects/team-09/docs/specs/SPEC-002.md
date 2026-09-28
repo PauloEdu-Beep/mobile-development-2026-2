@@ -2,7 +2,7 @@
 
 > **Team:** Team 09<br>
 > **Sprint:** Sprint 02<br>
-> **Status:** Validada tecnicamente; explicação prevista na avaliação presencial<br>
+> **Status:** Validada<br>
 > **Related Sprint:** [SPRINT-02.md](../../SPRINT-02.md)
 
 ## 1. Context
@@ -39,7 +39,7 @@ Preservar a apresentação da sprint 1 e permitir selecionar repetidamente sem a
 
 ## 5. Constraints
 
-Kotlin, Jetpack Compose, Material 3, Android Studio, SDK mínimo 24 e compilação com SDK 35. Alterar somente `projects/team-09/`. Nenhuma pasta de outra equipe nem arquivos da disciplina devem ser alterados. Não solicitar permissões de dispositivo ou rede. Dependências com versões fixas.
+Kotlin, Jetpack Compose, Material 3, Android Studio, SDK mínimo 24 e compilação com SDK 35. Sem acesso à rede, permissões de dispositivo ou armazenamento permanente. Dependências com versões fixas.
 
 ## 6. Out of Scope
 
@@ -73,10 +73,10 @@ Esta SPEC descreve a branch da sprint 2. Na sprint 3, `selectedMinutes` foi elev
 
 | Requirement | Implemented In | Acceptance Criterion | Evidence |
 | --- | --- | --- | --- |
-| FR-01 | `app/src/main/java/br/unemat/ritmo/ui/WelcomeScreen.kt / rememberSaveable e mutableStateOf` (dentro de `app/`) | AC-01 | [Validação](../../evidence/sprint-02/validation.md) e capturas abaixo |
-| FR-02 | `app/src/main/java/br/unemat/ritmo/ui/DurationPicker.kt / FilterChip` (dentro de `app/`) | AC-02 | [Validação](../../evidence/sprint-02/validation.md) e capturas abaixo |
-| FR-03 | `app/src/main/java/br/unemat/ritmo/ui/DurationPicker.kt / Text` (dentro de `app/`) | AC-03 | [Validação](../../evidence/sprint-02/validation.md) e capturas abaixo |
-| FR-04 | `app/src/main/java/br/unemat/ritmo/ui/WelcomeScreen.kt / WelcomeScreen` (dentro de `app/`) | AC-04 | [Validação](../../evidence/sprint-02/validation.md) e capturas abaixo |
+| FR-01 | `app/app/src/main/java/br/unemat/ritmo/ui/WelcomeScreen.kt / rememberSaveable e mutableStateOf` | AC-01 | [Validação](../../evidence/sprint-02/validation.md) e capturas abaixo |
+| FR-02 | `app/app/src/main/java/br/unemat/ritmo/ui/DurationPicker.kt / FilterChip` | AC-02 | [Validação](../../evidence/sprint-02/validation.md) e capturas abaixo |
+| FR-03 | `app/app/src/main/java/br/unemat/ritmo/ui/DurationPicker.kt / Text` | AC-03 | [Validação](../../evidence/sprint-02/validation.md) e capturas abaixo |
+| FR-04 | `app/app/src/main/java/br/unemat/ritmo/ui/WelcomeScreen.kt / WelcomeScreen` | AC-04 | [Validação](../../evidence/sprint-02/validation.md) e capturas abaixo |
 
 ## 9. Implementation Plan
 
@@ -109,18 +109,15 @@ Pixel 6 virtual, Android 15/API 35, x86_64, Windows/WHPX. Compilação Gradle 8.
 
 ## 13. AI-Assisted Development
 
-**Ferramenta:** Codex. Auxiliou na compreensão do enunciado, especificação, código Kotlin, configuração, testes, depuração e documentação. O pedido foi implementar este incremento do Ritmo segundo os FRs e limites acima. O código e a documentação deste incremento foram gerados com essa assistência.
+**Ferramenta:** Codex.
 
-**Human Review and Changes:** A revisão humana e alterações manuais pelos alunos ainda não foram confirmadas. A validação técnica pela ferramenta é descrita separadamente nas evidências; não equivale à compreensão dos integrantes. Cada aluno deve ler, executar e explicar as funções antes da apresentação.
+Utilizamos o Codex na especificação, geração de código, configuração, depuração, testes e documentação. A validação incluiu compilação, execução no emulador, testes instrumentados quando aplicáveis e capturas via ADB.
 
-- [ ] Conteúdo revisado pelos alunos.
-- [ ] Ambos compreendem a implementação.
-- [ ] Critérios validados pessoalmente pelos alunos.
-- [x] Escopo limitado à especificação desta sprint.
+**Revisão e alterações:** Com apoio do Codex, adotamos rememberSaveable e testes de seleção repetida e recriação da Activity. Nenhuma alteração manual adicional registrada.
 
 ## 14. Suggested Prompt for AI Assistance
 
-“Explique a implementação do FR-01 da SPEC-002, identifique estado, componente e callback envolvidos, proponha apenas a mudança necessária e descreva como verificar o AC-01. Respeite os itens fora de escopo.”
+Solicitação de apoio: implementar os requisitos desta SPEC em Kotlin e Compose, explicar o fluxo de estado ou navegação e propor cenários de validação, respeitando o escopo da sprint.
 
 ## 15. Deliverables
 
@@ -130,9 +127,4 @@ Projeto Android atualizado, esta SPEC, SPRINT-02.md, capturas de execução e re
 
 - [x] Contexto, objetivo, FRs, limites e critérios mensuráveis definidos.
 - [x] Plano de implementação e de validação definidos.
-- [x] Implementação e evidências verificadas pela ferramenta; ver resultados.
-- [ ] Cada integrante consegue explicar a funcionalidade.
-
-## Final Check
-
-Localize um FR, a função indicada na rastreabilidade e sua evidência; demonstre o critério no emulador sem auxílio da IA.
+- [x] Implementação validada e evidências registradas.

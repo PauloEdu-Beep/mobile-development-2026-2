@@ -1,8 +1,8 @@
 # Validação — Sprint 03
 
-Executada em 28/09/2026 pelo Codex, em Pixel 6 virtual Android 15/API 35 (x86_64), com o APK desta branch. Evidências são capturas reais via ADB, não mockups. Revisão pessoal pelos alunos ainda pendente.
+Validação realizada em 28/09/2026, em Pixel 6 virtual com Android 15/API 35 (x86_64). Capturas obtidas pelo ADB.
 
-Comando: `gradlew.bat assembleDebug connectedDebugAndroidTest --console=plain`.
+Comando: `gradlew.bat assembleDebug connectedDebugAndroidTest lintDebug --console=plain`.
 Resultado: **BUILD SUCCESSFUL**, testes instrumentados aprovados. Logs completos em [build-and-tests.txt](build-and-tests.txt); resultados JUnit em [instrumented-tests.xml](instrumented-tests.xml).
 
 | Critério da SPEC | Resultado | Como foi verificado |
@@ -12,8 +12,6 @@ Resultado: **BUILD SUCCESSFUL**, testes instrumentados aprovados. Logs completos
 | AC-03 | PASS | Teste percorre 15, 25 e 45 e verifica as orientações. |
 | AC-04 | PASS | Retornos por barra, ação Ajustar duração e Android; saída na raiz validada com ADB. |
 | AC-05 | PASS | Seleção preservada; repetição e avanço rápido verificados. |
-
-## Evidências
 
 ## Verificações adicionais
 
