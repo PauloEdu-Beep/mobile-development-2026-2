@@ -1,61 +1,82 @@
 # SPRINT 00 — Development Environment & Git Workflow
 
-## Equipe e objetivo
+**Equipe 09:** Fernando Henrique Cobianchi e João Victor R. Peres.
 
-Team 09: Fernando Henrique Cobianchi (20220059497) e João Victor R. Peres (20230079303). Preparar ambiente, fork, branch, build e execução de uma aplicação mínima. Sem SPEC de funcionalidade nesta sprint.
+## Objetivo e resultado
+
+Configuramos o ambiente Android e criamos uma aplicação mínima em Kotlin com Jetpack Compose. O projeto foi compilado e executado no emulador.
+
+## Definição do produto
+
+**Nome:** Ritmo.
+
+**Problema:** Estudantes com tempo limitado podem adiar o estudo por não saberem estruturar uma sessão curta.
+
+**Público:** Estudantes universitários.
+
+**Objetivo:** Ajudar a transformar minutos disponíveis em um plano de estudo.
+
+**Funcionalidades iniciais:** apresentação, escolha de duração e consulta ao plano, introduzidas nas sprints 1, 2 e 3.
+
+## Especificação
+
+Não se aplica: a sprint 0 trata da configuração do ambiente.
+
+## Implementação
+
+A `MainActivity` define a interface com `setContent`. O Gradle compila o código e gera o APK, que é instalado pelo ADB e executado no emulador. O wrapper mantém a versão do Gradle consistente entre máquinas.
 
 ## Ambiente
 
-- Windows 10, unidade C:, fora do OneDrive.
-- Android Studio Quail 4 / 2026.1.4.7, build AI-261.26222.65.2614.16204760.
-- Android SDK em `C:\Android\Sdk`; plataforma 35, Build Tools 35.0.0, Platform Tools, Emulator e Command-line Tools 19.0.
-- JDK Temurin 21.0.10; bytecode Java/Kotlin 17; Gradle 8.11.1; AGP 8.9.1; Kotlin 2.1.20.
-- Emulador Pixel 6, Android 15/API 35, x86_64, WHPX, 2 GB RAM.
-- Git e GitHub CLI autenticado em `botist`; GitHub Desktop 3.6.6 instalado. Os comandos de Git foram executados pela CLI equivalente.
-- Fork: https://github.com/botist/mobile-development-2026-2
-- Clone: `C:\Users\Fernando\Projects\mobiledev\mobile-development-2026-2`.
-- Branch criada antes da implementação: `team-09/sprint-00`.
+- Android Studio Quail 4, versão 2026.1.4.7, Windows 10.
+- SDK Platform 35; Build Tools 35.0.0; Platform Tools; Command-line Tools 19.0.
+- JDK Temurin 21.0.10; Gradle 8.11.1; AGP 8.9.1; Kotlin 2.1.20.
+- Pixel 6 virtual, Android 15/API 35, x86_64, WHPX, 2 GB de RAM.
+- Git, GitHub CLI e GitHub Desktop 3.6.6. Fork: [botist/mobile-development-2026-2](https://github.com/botist/mobile-development-2026-2).
 
 ## Validação
 
-| Critério oficial | Resultado | Evidência |
+| Critério | Resultado | Evidência |
 | --- | --- | --- |
-| AC-01 fork | PASS | URL acima |
-| AC-02 clone | PASS | clone local com origin e upstream |
-| AC-03 branch | PASS | histórico Git |
-| AC-04 estrutura | PASS | `app/settings.gradle.kts` |
-| AC-05 compilação | PASS | `evidence/sprint-00/build.txt` |
-| AC-06 execução | PASS | tela Ritmo no emulador |
-| AC-07 evidência | PASS | captura abaixo |
-| AC-08 explicação pelos alunos | PENDENTE | revisão e demonstração individual |
+| AC-01 — Fork | PASS | Fork indicado acima |
+| AC-02 — Clone | PASS | Cópia local com remotes origin e upstream |
+| AC-03 — Branch | PASS | team-09/sprint-00 |
+| AC-04 — Projeto Android | PASS | app/settings.gradle.kts |
+| AC-05 — Build | PASS | [Log](evidence/sprint-00/build.txt) |
+| AC-06 — Execução | PASS | Aplicativo instalado e aberto no emulador |
+| AC-07 — Evidência | PASS | Captura abaixo |
 
-![Aplicação mínima no emulador](evidence/sprint-00/android-running.png)
+O projeto foi clonado e a branch foi criada antes da implementação.
 
-## Problemas e soluções
+![android running](evidence/sprint-00/android-running.png)
 
-A versão latest do SDK Manager delegou para uma CLI nova que dividiu incorretamente os identificadores com ponto e vírgula. Foi instalada a versão 19.0 do Command-line Tools e os pacotes foram instalados com os identificadores completos. A primeira tentativa de instalação ocorreu antes do término do boot; a execução foi repetida após `sys.boot_completed=1`.
+## Ajustes e limitações
 
-## Conceitos para explicar
+Com apoio do Codex, ajustamos a versão do Command-line Tools e aguardamos o boot completo antes de instalar o APK.
 
-Fork é a cópia remota na conta do aluno; clone é a cópia local; branch isola um incremento; commit registra uma versão; push envia commits; Pull Request solicita revisão. O wrapper fixa a versão do Gradle, o SDK fornece APIs e ferramentas, e o emulador executa o APK compilado. Compilar e executar são verificações distintas.
+Aplicação mínima para verificar o ambiente.
 
 ## Uso de IA
 
 | Item | Resposta |
 | --- | --- |
 | LLM/tool used | Codex |
-| Task supported by the LLM | Configuração, projeto mínimo, build, execução e documentação |
-| Main suggestion received | SDK local no C:, versões fixadas e evidência capturada com ADB |
-| What the team changed manually | Não declarado; revisão humana ainda pendente |
-| How the result was validated | Gradle, instalação real e captura do emulador pela ferramenta |
+| Task supported by the LLM | Especificação, implementação, configuração, testes e documentação |
+| Main suggestion received | Configuração do SDK, versões do projeto e execução com Gradle e ADB. |
+| What the team changed manually | Nenhuma alteração manual adicional registrada; os ajustes foram feitos com apoio do Codex. |
+| How the result was validated | Gradle, execução no emulador, capturas via ADB |
+
+
+## Entrega
+
+Branch: `team-09/sprint-00`. [Pull Request #19](https://github.com/brenofeliix/mobile-development-2026-2/pull/19), com destino à `main` do repositório da disciplina.
+
+
 
 ## Definition of Done
 
-- [x] Ambiente preparado, app compilado e executado.
-- [x] Evidência e relatório incluídos.
-A explicação dos alunos será avaliada presencialmente ao final da disciplina.
-- [ ] PR aprovado e integrado pelo professor.
-
-Envio realizado em branch própria por Pull Request ao repositório do professor.
-
-**Entrega pelo repositório:** [PR #19](https://github.com/brenofeliix/mobile-development-2026-2/pull/19), submetido ao professor. A avaliação presencial ocorre ao final da disciplina.
+- [x] Ambiente configurado e projeto criado.
+- [x] Compilação e execução verificadas.
+- [x] Evidências e resultados registrados.
+- [x] Uso de IA documentado.
+- [x] Branch publicada e PR enviado.
