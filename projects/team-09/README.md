@@ -33,7 +33,6 @@ A partir de `app/`, no PowerShell:
 ```powershell
 .\gradlew.bat assembleDebug
 
-
 ```
 
 ## Entregas
