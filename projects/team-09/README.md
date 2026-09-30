@@ -21,10 +21,20 @@ O escopo até a sprint 3 é apresentar o aplicativo, selecionar a duração e co
 
 ## Executar
 
+
+Sprint 00: Configuramos o ambiente Android e criamos uma aplicação mínima em Kotlin com Jetpack Compose. O projeto foi compilado e executado no emulador.
+
+O escopo até a sprint 3 é apresentar o aplicativo, selecionar a duração e consultar o plano de estudo. Cronômetro, histórico, banco de dados, login e integrações externas ficam fora desta entrega.
+
+## Executar
+
 1. Abra a pasta `app/`, que contém `settings.gradle.kts`, no Android Studio.
 2. Instale SDK Platform 35, Build Tools 35.0.0 e Platform Tools pelo SDK Manager.
 3. Use JDK 17 ou 21 e aguarde a sincronização do Gradle.
 4. Execute o módulo `app` em um dispositivo com API 24 ou superior.
+
+O projeto usa Kotlin 2.1.20, AGP 8.9.1 e Gradle 8.11.1. A validação foi realizada em um Pixel 6 virtual com Android 15/API 35.
+
 
 O projeto usa Kotlin 2.1.20, AGP 8.9.1 e Gradle 8.11.1. A validação foi realizada em um Pixel 6 virtual com Android 15/API 35.
 
@@ -34,6 +44,7 @@ A partir de `app/`, no PowerShell:
 .\gradlew.bat assembleDebug
 .\gradlew.bat connectedDebugAndroidTest
 .\gradlew.bat lintDebug
+
 ```
 
 ## Entregas
