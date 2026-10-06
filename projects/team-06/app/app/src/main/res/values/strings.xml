@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name" translatable="false">mapa_teste</string>
+    <string name="login_title">Caramelo Transportes</string>
+    <string name="email_hint">E-mail</string>
+    <string name="password_hint">Senha</string>
+    <string name="login_button">Entrar</string>
+    <string name="title_activity_mapao_do_oda" translatable="false">Mapao_do_Oda</string>
+</resources>
