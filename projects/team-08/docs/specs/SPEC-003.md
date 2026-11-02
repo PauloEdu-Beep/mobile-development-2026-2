@@ -45,7 +45,7 @@ A aplicação deve configurar o `NavController` e `NavHost` do Jetpack Compose p
 A rota inicial `"welcome"` deve exibir a tela `WelcomeScreen`, contendo o título do app, descrição e botão de navegação para a lista de compras.
 
 ### FR-03 — Shopping List Screen Route
-A rota `"shopping_list"` deve exibir a tela `ShoppingListScreen`, contendo título da tela, itens de compras do dia a dia e opção de marcar itens comprados.
+A rota `"shopping_list"` deve exibir a tela `ShoppingListScreen`, contendo ícone de carrinho, título da tela, campo e botão para adicionar novos itens, lista com os itens anotados, opção de marcar como comprado e botão para excluir/apagar item.
 
 ### FR-04 — Forward Navigation
 O acionamento do botão principal na `WelcomeScreen` deve navegar para a rota `"shopping_list"`.
@@ -53,8 +53,8 @@ O acionamento do botão principal na `WelcomeScreen` deve navegar para a rota `"
 ### FR-05 — Back Navigation
 A tela `ShoppingListScreen` deve permitir retornar à tela anterior tanto pelo botão de retorno na interface (TopBar/botão Voltar) quanto pelo botão/gesto nativo de voltar do Android, restaurando a pilha de navegação.
 
-### FR-06 — State Interaction Preservation
-A tela `ShoppingListScreen` deve permitir que o usuário interaja com os itens (marcar/desmarcar item como comprado), mantendo a capacidade de resposta e manipulação de estado em Jetpack Compose desenvolvida nas sprints anteriores.
+### FR-06 — State Interaction & Item Management
+A tela `ShoppingListScreen` deve permitir que o usuário interaja com a lista dinamicamente: adicionar um novo item pelo campo de texto e botão "+", apagar um item pelo ícone de lixeira e marcar/desmarcar item como comprado com checkbox, mantendo a manipulação reativa de estado em Jetpack Compose.
 
 ---
 

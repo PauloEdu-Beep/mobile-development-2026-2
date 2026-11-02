@@ -49,7 +49,7 @@ A navegação foi centralizada no componente `AppNavHost`:
 
 ## 4. Estrutura de Arquivos
 
-Conforme os critérios de aceitação e boas práticas, o código foi modularizado:
+Conforme os critérios de aceitação e boas práticas, o projeto segue o padrão oficial da disciplina:
 
 ```text
 projects/team-08/
@@ -62,16 +62,18 @@ projects/team-08/
 │       ├── screen-a.png
 │       └── screen-b.png
 └── app/
+    ├── build.gradle.kts
+    ├── settings.gradle.kts
+    ├── gradle.properties
     └── app/
-        └── app/
-            └── src/main/java/com/example/mercadinho/
-                ├── MainActivity.kt
-                └── ui/
-                    ├── navigation/
-                    │   └── AppNavHost.kt
-                    └── screens/
-                        ├── WelcomeScreen.kt
-                        └── ShoppingListScreen.kt
+        └── src/main/java/com/example/mercadinho/
+            ├── MainActivity.kt
+            └── ui/
+                ├── navigation/
+                │   └── AppNavHost.kt
+                └── screens/
+                    ├── WelcomeScreen.kt
+                    └── ShoppingListScreen.kt
 ```
 
 ---
@@ -81,7 +83,7 @@ projects/team-08/
 | Item | Team response |
 | --- | --- |
 | **LLM/tool used** | Google Antigravity (Gemini 3.8 Flash) |
-| **Task supported by the LLM** | Inclusão do Navigation Compose nas dependências Gradle, modularização das telas em arquivos separados e elaboração da `SPEC-003.md` |
+| **Task supported by the LLM** | Inclusão do Navigation Compose nas dependências Gradle, modularização das telas em arquivos separados, reorganização de diretórios e elaboração da `SPEC-003.md` |
 | **Main suggestion received** | Criação de `AppNavHost.kt` para centralizar as rotas e desacoplar `WelcomeScreen` e `ShoppingListScreen` em arquivos composables dedicados |
 | **What the team changed manually** | Definição das rotas e textos específicos do Mercadinho, modelagem dos itens de compras do dia a dia e ajuste da barra de retorno |
 | **How the result was validated** | Compilação com Gradle (`./gradlew assembleDebug`), execução no emulador Android Studio, validação do clique e teste de retorno |
