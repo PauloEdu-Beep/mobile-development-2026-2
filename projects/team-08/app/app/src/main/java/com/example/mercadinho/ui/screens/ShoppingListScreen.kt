@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -19,11 +20,13 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ReceiptLong
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Storefront
 import androidx.compose.material3.AlertDialog
@@ -31,7 +34,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -44,12 +49,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -57,7 +62,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.mercadinho.data.PurchaseRecord
+import com.example.mercadinho.data.ShoppingRepository
 import com.example.mercadinho.ui.theme.MercadinhoTheme
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 data class ShoppingItem(
     val id: Int,
@@ -71,8 +81,18 @@ fun ShoppingListScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var nextId by remember { mutableIntStateOf(8) }
+    val context = LocalContext.current
+    val repository = remember { ShoppingRepository(context) }
+
+    // Persistência local (Sprint 05): carregar dados salvos do disco
+    var itemsList by remember { mutableStateOf(repository.loadShoppingItems()) }
+    var purchasesList by remember { mutableStateOf(repository.loadPurchases()) }
+    var lastPurchase by remember { mutableStateOf(repository.loadLastPurchase()) }
+
     var newItemName by remember { mutableStateOf("") }
+
+    // Estado do diálogo "Minhas Compras Anteriores"
+    var showPurchasesHistoryDialog by remember { mutableStateOf(false) }
 
     // Estado do formulário de finalização da compra (Sprint 04)
     var showCheckoutDialog by remember { mutableStateOf(false) }
@@ -82,43 +102,145 @@ fun ShoppingListScreen(
     var totalAmountError by remember { mutableStateOf<String?>(null) }
     var checkoutSuccessMessage by remember { mutableStateOf<String?>(null) }
 
-    var itemsList by remember {
-        mutableStateOf(
-            listOf(
-                ShoppingItem(1, "Arroz 5kg", false),
-                ShoppingItem(2, "Feijão Preto 1kg", false),
-                ShoppingItem(3, "Café Torrado", true),
-                ShoppingItem(4, "Leite Integral", false),
-                ShoppingItem(5, "Pão Francês", false),
-                ShoppingItem(6, "Maçã Gala", false),
-                ShoppingItem(7, "Sabão em Pó", false)
-            )
-        )
-    }
-
     val addItem = {
         val trimmed = newItemName.trim()
         if (trimmed.isNotEmpty()) {
-            itemsList = itemsList + ShoppingItem(
-                id = nextId++,
+            val newId = (itemsList.maxOfOrNull { it.id } ?: 0) + 1
+            val updated = itemsList + ShoppingItem(
+                id = newId,
                 name = trimmed,
                 isChecked = false
             )
+            itemsList = updated
+            repository.saveShoppingItems(updated)
             newItemName = ""
         }
     }
 
     val deleteItem: (Int) -> Unit = { itemId ->
-        itemsList = itemsList.filter { it.id != itemId }
+        val updated = itemsList.filter { it.id != itemId }
+        itemsList = updated
+        repository.saveShoppingItems(updated)
     }
 
     val toggleItem: (Int) -> Unit = { itemId ->
-        itemsList = itemsList.map {
+        val updated = itemsList.map {
             if (it.id == itemId) it.copy(isChecked = !it.isChecked) else it
         }
+        itemsList = updated
+        repository.saveShoppingItems(updated)
     }
 
     val pendingCount = itemsList.count { !it.isChecked }
+
+    // Diálogo "Minhas Compras" (Histórico completo de compras com itens e valores)
+    if (showPurchasesHistoryDialog) {
+        AlertDialog(
+            onDismissRequest = { showPurchasesHistoryDialog = false },
+            icon = {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ReceiptLong,
+                    contentDescription = null,
+                    modifier = Modifier.size(36.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            },
+            title = {
+                Text(
+                    text = "Minhas Compras",
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.titleLarge
+                )
+            },
+            text = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 400.dp)
+                ) {
+                    if (purchasesList.isEmpty()) {
+                        Text(
+                            text = "Nenhuma compra registrada anteriormente.\nFinalize suas compras para salvar o histórico com os itens e valores!",
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(vertical = 24.dp)
+                        )
+                    } else {
+                        LazyColumn(
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            items(purchasesList, key = { it.id }) { purchase ->
+                                Card(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = RoundedCornerShape(12.dp),
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                                    )
+                                ) {
+                                    Column(modifier = Modifier.padding(12.dp)) {
+                                        Row(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            horizontalArrangement = Arrangement.SpaceBetween,
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Text(
+                                                text = purchase.marketName,
+                                                style = MaterialTheme.typography.titleMedium,
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.primary
+                                            )
+                                            Text(
+                                                text = purchase.date,
+                                                style = MaterialTheme.typography.labelMedium,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                            )
+                                        }
+
+                                        if (purchase.amount.isNotEmpty()) {
+                                            Text(
+                                                text = "Valor Total: R$ ${purchase.amount}",
+                                                style = MaterialTheme.typography.bodyMedium,
+                                                fontWeight = FontWeight.SemiBold,
+                                                color = MaterialTheme.colorScheme.secondary,
+                                                modifier = Modifier.padding(vertical = 4.dp)
+                                            )
+                                        }
+
+                                        HorizontalDivider(
+                                            modifier = Modifier.padding(vertical = 6.dp),
+                                            color = DividerDefaults.color.copy(alpha = 0.5f)
+                                        )
+
+                                        Text(
+                                            text = "Itens comprados:",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            fontWeight = FontWeight.Bold,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+
+                                        Text(
+                                            text = if (purchase.itemsSummary.isNotEmpty()) purchase.itemsSummary else "Itens gerais da lista",
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = { showPurchasesHistoryDialog = false },
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Fechar")
+                }
+            }
+        )
+    }
 
     // Diálogo de Formulário com Validação para Finalizar Compra
     if (showCheckoutDialog) {
@@ -224,8 +346,33 @@ fun ShoppingListScreen(
 
                         if (!hasError) {
                             showCheckoutDialog = false
-                            // Reinicia a lista desmarcando os itens para o próximo ciclo de compras
-                            itemsList = itemsList.map { it.copy(isChecked = false) }
+                            val currentDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+
+                            // Monta o resumo dos itens comprados
+                            val checkedItems = itemsList.filter { it.isChecked }
+                            val summary = if (checkedItems.isNotEmpty()) {
+                                checkedItems.joinToString(", ") { it.name }
+                            } else {
+                                itemsList.joinToString(", ") { it.name }
+                            }
+
+                            val newRecord = PurchaseRecord(
+                                marketName = trimmedMarket,
+                                amount = trimmedAmount,
+                                date = currentDate,
+                                itemsSummary = summary
+                            )
+
+                            // Salva a compra no histórico persistente (Sprint 05)
+                            repository.savePurchase(newRecord)
+                            purchasesList = repository.loadPurchases()
+                            lastPurchase = newRecord
+
+                            // Reinicia a lista desmarcando os itens e salva no disco
+                            val updated = itemsList.map { it.copy(isChecked = false) }
+                            itemsList = updated
+                            repository.saveShoppingItems(updated)
+
                             checkoutSuccessMessage = "Compra no '$trimmedMarket' finalizada com sucesso! Nova lista criada."
                         }
                     },
@@ -274,43 +421,82 @@ fun ShoppingListScreen(
                         )
                     }
                 },
+                actions = {
+                    // Botão "Minhas Compras" no topo
+                    IconButton(onClick = { showPurchasesHistoryDialog = true }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ReceiptLong,
+                            contentDescription = "Minhas Compras",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             )
         },
         bottomBar = {
-            // Botão de Finalizar Compra fixo na parte inferior
+            // Barra inferior com botões de Ação
             Surface(
                 color = MaterialTheme.colorScheme.surface,
                 shadowElevation = 8.dp,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Button(
-                    onClick = {
-                        marketName = ""
-                        totalAmount = ""
-                        marketNameError = null
-                        totalAmountError = null
-                        showCheckoutDialog = true
-                    },
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
-                        .height(52.dp),
-                    shape = RoundedCornerShape(14.dp)
+                        .padding(horizontal = 16.dp, vertical = 10.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.CheckCircle,
-                        contentDescription = null,
-                        modifier = Modifier.size(22.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "Finalizar Compra",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
+                    // Botão de Minhas Compras
+                    OutlinedButton(
+                        onClick = { showPurchasesHistoryDialog = true },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(44.dp),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ReceiptLong,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "Minhas Compras (${purchasesList.size})",
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // Botão de Finalizar Compra
+                    Button(
+                        onClick = {
+                            marketName = ""
+                            totalAmount = ""
+                            marketNameError = null
+                            totalAmountError = null
+                            showCheckoutDialog = true
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.CheckCircle,
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "Finalizar Compra",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 }
             }
         }
@@ -321,6 +507,48 @@ fun ShoppingListScreen(
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
+            // Card de Histórico da Última Compra (Persistência Sprint 05)
+            lastPurchase?.let { purchase ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp)
+                        .clickable { showPurchasesHistoryDialog = true },
+                    shape = RoundedCornerShape(12.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.History,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Última compra salva (toque para ver todas):",
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
+                            )
+                            val valorTexto = if (purchase.amount.isNotEmpty()) " • R$ ${purchase.amount}" else ""
+                            Text(
+                                text = "${purchase.marketName}$valorTexto • ${purchase.date}",
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer
+                            )
+                        }
+                    }
+                }
+            }
+
             // Banner de sucesso ao finalizar compra
             checkoutSuccessMessage?.let { msg ->
                 Card(
