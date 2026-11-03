@@ -1,0 +1,137 @@
+{
+  "receitas": [
+    {
+      "id": "br-01",
+      "titulo": "Macarrão ao Molho com Carne Moída",
+      "categoria": "massas",
+      "origem": "Culinária Brasileira / Caseira",
+      "imagemUrl": "https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg",
+      "ingredientes": [
+        "500g de Macarrão Espaguete",
+        "2 latas de Molho de Tomate",
+        "400g de Carne Moída (Patinho ou Acém)",
+        "1 Cebola média picada",
+        "3 dentes de Alho amassados",
+        "1 caixa de Creme de Leite",
+        "100g de Queijo Parmesão Ralado",
+        "1 sachê de Azeitonas Verdes sem caroço",
+        "2 colheres de sopa de Azeite de Oliva",
+        "Sal e cheiro-verde a gosto"
+      ]
+    },
+    {
+      "id": "br-02",
+      "titulo": "Feijoada Completa Tradicional",
+      "categoria": "tipicos",
+      "origem": "Tradicional Brasileira",
+      "imagemUrl": "https://www.themealdb.com/images/media/meals/1529446352.jpg",
+      "ingredientes": [
+        "1kg de Feijão Preto",
+        "300g de Carne Seca dessalgada",
+        "250g de Costelinha Suína",
+        "200g de Linguiça Calabresa defumada",
+        "150g de Paio fatiado",
+        "150g de Bacon em cubos",
+        "1 maço de Couve Manteiga fresca",
+        "500g de Farinha de Mandioca torrada",
+        "4 Laranjas pera para fatiar",
+        "4 dentes de Alho e louro a gosto"
+      ]
+    },
+    {
+      "id": "br-03",
+      "titulo": "Estrogonofe de Frango com Batata Palha",
+      "categoria": "carnes",
+      "origem": "Culinária Brasileira",
+      "imagemUrl": "https://www.themealdb.com/images/media/meals/sypxpx1515365095.jpg",
+      "ingredientes": [
+        "1kg de Peito de Frango em cubos",
+        "2 caixas de Creme de Leite",
+        "1 xícara de Molho de Tomate",
+        "2 colheres de sopa de Mostarda",
+        "2 colheres de sopa de Ketchup",
+        "1 vidro de Champignon fatiado (100g)",
+        "1 pacote de Batata Palha crocante",
+        "1 Cebola picada e 2 dentes de Alho",
+        "Sal e pimenta-do-reino a gosto"
+      ]
+    },
+    {
+      "id": "br-04",
+      "titulo": "Moqueca Baiana de Peixe",
+      "categoria": "tipicos",
+      "origem": "Bahia, Brasil",
+      "imagemUrl": "https://www.themealdb.com/images/media/meals/do7zps1614349775.jpg",
+      "ingredientes": [
+        "800g de Postas de Peixe (Cação ou Badejo)",
+        "200ml de Leite de Coco",
+        "3 colheres de sopa de Azeite de Dendê",
+        "1 Pimentão Vermelho em rodelas",
+        "1 Pimentão Amarelo em rodelas",
+        "2 Tomates maduros fatiados",
+        "1 Cebola grande em rodelas",
+        "1 maço de Coentro fresco picado",
+        "2 Limões para marinar o peixe"
+      ]
+    },
+    {
+      "id": "br-05",
+      "titulo": "Pão de Queijo Mineiro Caseiro",
+      "categoria": "lanches",
+      "origem": "Minas Gerais, Brasil",
+      "imagemUrl": "https://www.themealdb.com/images/media/meals/4er7mj1598733193.jpg",
+      "ingredientes": [
+        "500g de Polvilho Azedo (ou Doce)",
+        "350g de Queijo Meia Cura ou Canastra ralado",
+        "1 xícara de Leite integral",
+        "1/2 xícara de Óleo de soja",
+        "2 Ovos caipiras",
+        "1 colher de chá de Sal"
+      ]
+    },
+    {
+      "id": "br-06",
+      "titulo": "Escondidinho de Carne Seca com Mandioca",
+      "categoria": "tipicos",
+      "origem": "Nordeste Brasileiro",
+      "imagemUrl": "https://www.themealdb.com/images/media/meals/uvuyxu1503067369.jpg",
+      "ingredientes": [
+        "1kg de Mandioca (Aipim/Macaxeira) cozida",
+        "600g de Carne Seca dessalgada e desfiada",
+        "1 pote de Requeijão Cremoso (200g)",
+        "200g de Queijo Mussarela fatiado",
+        "2 colheres de Manteiga de Garrafa",
+        "1 Cebola roxa picadinha",
+        "Cheiro-verde e sal a gosto"
+      ]
+    },
+    {
+      "id": "br-07",
+      "titulo": "Pudim de Leite Condensado Lisinho",
+      "categoria": "sobremesas",
+      "origem": "Clássico Brasileiro",
+      "imagemUrl": "https://www.themealdb.com/images/media/meals/adxcbq1619787519.jpg",
+      "ingredientes": [
+        "1 lata de Leite Condensado (395g)",
+        "1 lata de Leite integral (mesma medida)",
+        "3 Ovos inteiros",
+        "1 xícara de Açúcar cristal (para a calda)",
+        "1/2 xícara de Água fervente"
+      ]
+    },
+    {
+      "id": "br-08",
+      "titulo": "Brigadeiro Gourmet de Panela",
+      "categoria": "sobremesas",
+      "origem": "Tradicional Brasileiro",
+      "imagemUrl": "https://www.themealdb.com/images/media/meals/tqtywx1468317395.jpg",
+      "ingredientes": [
+        "1 lata de Leite Condensado",
+        "1 colher de sopa de Manteiga sem sal",
+        "4 colheres de sopa de Chocolate em Pó 50%",
+        "1 pacote de Granulado de Chocolate nobre",
+        "1 caixa de Creme de Leite (opcional para ficar cremoso)"
+      ]
+    }
+  ]
+}

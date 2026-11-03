@@ -26,11 +26,14 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Restaurant
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Storefront
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -45,9 +48,11 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -79,6 +84,7 @@ data class ShoppingItem(
 @Composable
 fun ShoppingListScreen(
     onBackClick: () -> Unit,
+    onNavigateToSuggestions: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -89,10 +95,20 @@ fun ShoppingListScreen(
     var purchasesList by remember { mutableStateOf(repository.loadPurchases()) }
     var lastPurchase by remember { mutableStateOf(repository.loadLastPurchase()) }
 
+    // Atualiza a lista sempre que a tela for reexibida
+    LaunchedEffect(Unit) {
+        itemsList = repository.loadShoppingItems()
+        purchasesList = repository.loadPurchases()
+        lastPurchase = repository.loadLastPurchase()
+    }
+
     var newItemName by remember { mutableStateOf("") }
 
     // Estado do diálogo "Minhas Compras Anteriores"
     var showPurchasesHistoryDialog by remember { mutableStateOf(false) }
+
+    // Estado do diálogo "Limpar Carrinho"
+    var showClearCartDialog by remember { mutableStateOf(false) }
 
     // Estado do formulário de finalização da compra (Sprint 04)
     var showCheckoutDialog by remember { mutableStateOf(false) }
@@ -237,6 +253,57 @@ fun ShoppingListScreen(
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text("Fechar")
+                }
+            }
+        )
+    }
+
+    // Diálogo de Confirmação para Limpar Carrinho
+    if (showClearCartDialog) {
+        AlertDialog(
+            onDismissRequest = { showClearCartDialog = false },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.DeleteSweep,
+                    contentDescription = null,
+                    modifier = Modifier.size(36.dp),
+                    tint = MaterialTheme.colorScheme.error
+                )
+            },
+            title = {
+                Text(
+                    text = "Limpar Carrinho?",
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.titleLarge
+                )
+            },
+            text = {
+                Text(
+                    text = "Tem certeza que deseja remover todos os ${itemsList.size} itens da sua lista de compras? Essa ação não pode ser desfeita.",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        itemsList = emptyList()
+                        repository.clearShoppingItems()
+                        showClearCartDialog = false
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Sim, Limpar Tudo")
+                }
+            },
+            dismissButton = {
+                OutlinedButton(
+                    onClick = { showClearCartDialog = false },
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Cancelar")
                 }
             }
         )
@@ -422,6 +489,15 @@ fun ShoppingListScreen(
                     }
                 },
                 actions = {
+                    // Botão "Sugestões de Receitas" (Integração REST API - Sprint 06)
+                    IconButton(onClick = onNavigateToSuggestions) {
+                        Icon(
+                            imageVector = Icons.Default.Restaurant,
+                            contentDescription = "Sugestões de Receitas",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+
                     // Botão "Minhas Compras" no topo
                     IconButton(onClick = { showPurchasesHistoryDialog = true }) {
                         Icon(
@@ -429,6 +505,17 @@ fun ShoppingListScreen(
                             contentDescription = "Minhas Compras",
                             tint = MaterialTheme.colorScheme.primary
                         )
+                    }
+
+                    // Botão "Limpar Carrinho"
+                    if (itemsList.isNotEmpty()) {
+                        IconButton(onClick = { showClearCartDialog = true }) {
+                            Icon(
+                                imageVector = Icons.Default.DeleteSweep,
+                                contentDescription = "Limpar Carrinho",
+                                tint = MaterialTheme.colorScheme.error
+                            )
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -637,11 +724,27 @@ fun ShoppingListScreen(
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold
                 )
-                Text(
-                    text = "$pendingCount pendente(s)",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "$pendingCount pendente(s)",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    if (itemsList.isNotEmpty()) {
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(text = "•", color = MaterialTheme.colorScheme.outline)
+                        TextButton(
+                            onClick = { showClearCartDialog = true }
+                        ) {
+                            Text(
+                                text = "Limpar",
+                                color = MaterialTheme.colorScheme.error,
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+                }
             }
 
             Spacer(modifier = Modifier.height(12.dp))
