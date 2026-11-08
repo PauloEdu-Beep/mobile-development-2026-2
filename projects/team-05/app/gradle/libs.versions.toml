@@ -1,14 +1,21 @@
-[versions]
-agp = "9.3.1"
-coreKtx = "1.19.0"
-junit = "4.13.2"
-junitVersion = "1.3.0"
-espressoCore = "3.7.0"
-lifecycleRuntimeKtx = "2.11.0"
-activityCompose = "1.13.0"
-kotlin = "2.2.10"
-composeBom = "2026.02.01"
+# Catálogo de versões: lista, num só lugar, as bibliotecas e plugins do projeto e suas versões.
+# Os arquivos build.gradle.kts usam esses nomes como "libs.<nome>" (os hífens viram pontos).
 
+# Versões: trocar um número aqui atualiza todas as bibliotecas que usam essa versão.
+[versions]
+agp = "9.3.1"                  # Android Gradle Plugin (a ferramenta que monta o APK).
+coreKtx = "1.19.0"             # AndroidX Core KTX.
+junit = "4.13.2"               # JUnit (testes de unidade).
+junitVersion = "1.3.0"         # JUnit para Android.
+espressoCore = "3.7.0"         # Espresso (testes de interface).
+lifecycleRuntimeKtx = "2.11.0" # Ciclo de vida.
+activityCompose = "1.13.0"     # Activity + Compose.
+kotlin = "2.2.10"              # Linguagem Kotlin (e o plugin do Compose).
+composeBom = "2026.02.01"      # BOM do Compose: define as versões de todas as bibliotecas do Compose.
+navigationCompose = "2.10.2"   # Navigation Compose: troca de telas (Sprint 03).
+
+# Bibliotecas: "group" e "name" são o endereço da biblioteca no repositório; "version.ref" aponta para [versions].
+# As do Compose não têm versão aqui porque quem decide é o BOM.
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -25,8 +32,9 @@ androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
+# Plugins usados nos build.gradle.kts.
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-

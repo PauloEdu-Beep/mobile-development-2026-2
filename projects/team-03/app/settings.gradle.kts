@@ -22,6 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Teste"
+rootProject.name = "Wifi"
 include(":app")
- 

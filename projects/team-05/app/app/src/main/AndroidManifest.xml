@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- "Carteira de identidade" do aplicativo: informa ao Android o nome, o ícone e qual tela abrir primeiro. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Configurações gerais do aplicativo inteiro. -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,12 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SARC">
+        <!-- A tela principal do app (arquivo MainActivity.kt). -->
+        <!-- adjustResize: pede ao Android para abrir espaço para o teclado. Como a MainActivity usa enableEdgeToEdge, -->
+        <!-- no Compose isso só tem efeito com Modifier.imePadding(), que ainda não é usado na tela. -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SARC"
             android:windowSoftInputMode="adjustResize">
+            <!-- MAIN + LAUNCHER: faz o ícone aparecer no celular e abre esta tela ao tocar nele. -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
