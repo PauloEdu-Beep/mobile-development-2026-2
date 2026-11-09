@@ -20,8 +20,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Storefront
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -30,8 +35,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -45,6 +52,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,6 +73,14 @@ fun ShoppingListScreen(
 ) {
     var nextId by remember { mutableIntStateOf(8) }
     var newItemName by remember { mutableStateOf("") }
+
+    // Estado do formulário de finalização da compra (Sprint 04)
+    var showCheckoutDialog by remember { mutableStateOf(false) }
+    var marketName by remember { mutableStateOf("") }
+    var totalAmount by remember { mutableStateOf("") }
+    var marketNameError by remember { mutableStateOf<String?>(null) }
+    var totalAmountError by remember { mutableStateOf<String?>(null) }
+    var checkoutSuccessMessage by remember { mutableStateOf<String?>(null) }
 
     var itemsList by remember {
         mutableStateOf(
@@ -104,6 +120,133 @@ fun ShoppingListScreen(
 
     val pendingCount = itemsList.count { !it.isChecked }
 
+    // Diálogo de Formulário com Validação para Finalizar Compra
+    if (showCheckoutDialog) {
+        AlertDialog(
+            onDismissRequest = { showCheckoutDialog = false },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Storefront,
+                    contentDescription = null,
+                    modifier = Modifier.size(36.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            },
+            title = {
+                Text(
+                    text = "Finalizar Compra",
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.titleLarge
+                )
+            },
+            text = {
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "Informe o nome do supermercado para registrar suas compras realizadas:",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Campo 1: Nome do Supermercado (Obrigatório, mín. 3 letras)
+                    OutlinedTextField(
+                        value = marketName,
+                        onValueChange = {
+                            marketName = it
+                            if (marketNameError != null) marketNameError = null
+                        },
+                        label = { Text("Nome do Supermercado *") },
+                        placeholder = { Text("Ex: Supermercado Big Mais") },
+                        isError = marketNameError != null,
+                        supportingText = {
+                            if (marketNameError != null) {
+                                Text(
+                                    text = marketNameError!!,
+                                    color = MaterialTheme.colorScheme.error,
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
+                        },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // Campo 2: Valor Total Gasto (Opcional, formato numérico decimal)
+                    OutlinedTextField(
+                        value = totalAmount,
+                        onValueChange = {
+                            totalAmount = it
+                            if (totalAmountError != null) totalAmountError = null
+                        },
+                        label = { Text("Valor Gasto (R$) - Opcional") },
+                        placeholder = { Text("Ex: 149.90") },
+                        isError = totalAmountError != null,
+                        supportingText = {
+                            if (totalAmountError != null) {
+                                Text(
+                                    text = totalAmountError!!,
+                                    color = MaterialTheme.colorScheme.error,
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
+                        },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        var hasError = false
+                        val trimmedMarket = marketName.trim()
+                        if (trimmedMarket.length < 3) {
+                            marketNameError = "Informe o nome do supermercado (mínimo 3 caracteres)"
+                            hasError = true
+                        }
+
+                        val trimmedAmount = totalAmount.trim()
+                        if (trimmedAmount.isNotEmpty()) {
+                            val parsed = trimmedAmount.replace(",", ".").toDoubleOrNull()
+                            if (parsed == null || parsed < 0) {
+                                totalAmountError = "Informe um valor numérico válido (ex: 150.50)"
+                                hasError = true
+                            }
+                        }
+
+                        if (!hasError) {
+                            showCheckoutDialog = false
+                            // Reinicia a lista desmarcando os itens para o próximo ciclo de compras
+                            itemsList = itemsList.map { it.copy(isChecked = false) }
+                            checkoutSuccessMessage = "Compra no '$trimmedMarket' finalizada com sucesso! Nova lista criada."
+                        }
+                    },
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.Check, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text("Confirmar Compra")
+                }
+            },
+            dismissButton = {
+                OutlinedButton(
+                    onClick = { showCheckoutDialog = false },
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Cancelar")
+                }
+            }
+        )
+    }
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
@@ -135,6 +278,41 @@ fun ShoppingListScreen(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             )
+        },
+        bottomBar = {
+            // Botão de Finalizar Compra fixo na parte inferior
+            Surface(
+                color = MaterialTheme.colorScheme.surface,
+                shadowElevation = 8.dp,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Button(
+                    onClick = {
+                        marketName = ""
+                        totalAmount = ""
+                        marketNameError = null
+                        totalAmountError = null
+                        showCheckoutDialog = true
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .height(52.dp),
+                    shape = RoundedCornerShape(14.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.CheckCircle,
+                        contentDescription = null,
+                        modifier = Modifier.size(22.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Finalizar Compra",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
         }
     ) { innerPadding ->
         Column(
@@ -143,6 +321,50 @@ fun ShoppingListScreen(
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
+            // Banner de sucesso ao finalizar compra
+            checkoutSuccessMessage?.let { msg ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.CheckCircle,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(
+                            text = msg,
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Medium,
+                            modifier = Modifier.weight(1f),
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                        IconButton(
+                            onClick = { checkoutSuccessMessage = null },
+                            modifier = Modifier.size(24.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Close,
+                                contentDescription = "Fechar aviso",
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                        }
+                    }
+                }
+            }
+
             // Seção de Adicionar Item
             Row(
                 modifier = Modifier.fillMaxWidth(),
