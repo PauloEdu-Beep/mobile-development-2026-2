@@ -19,6 +19,7 @@ import androidx.navigation.compose.rememberNavController
 
 // Importação das telas e do tema visual criados pela equipe.
 import com.team05.sarc.ui.screens.HomeDocenteScreen
+import com.team05.sarc.ui.screens.NovoAcionamentoScreen
 import com.team05.sarc.ui.screens.WelcomeScreen
 import com.team05.sarc.ui.theme.SARCTheme
 
@@ -47,7 +48,7 @@ class MainActivity : ComponentActivity() {
                     // Sprint 03: o NavController lembra em qual tela o usuário está.
                     val navController = rememberNavController()
 
-                    // O NavHost é o "mapa" das telas: 2 rotas, começando no Login ("welcome").
+                    // O NavHost é o "mapa" das telas: 3 rotas, começando no Login ("welcome").
                     NavHost(navController = navController, startDestination = "welcome") {
 
                         // Rota "welcome": a tela de login das Sprints 01 e 02.
@@ -62,8 +63,15 @@ class MainActivity : ComponentActivity() {
                         composable("home") {
                             HomeDocenteScreen(
                                 // "Sair" tira o painel da pilha e volta ao Login.
-                                onSair = { navController.popBackStack() }
+                                onSair = { navController.popBackStack() },
+                                // "Novo acionamento" abre o formulário (Sprint 04).
+                                onNovoAcionamento = { navController.navigate("novo-acionamento") }
                             )
+                        }
+
+                        // Rota "novo-acionamento": o formulário. Cancelar e OK voltam ao painel.
+                        composable("novo-acionamento") {
+                            NovoAcionamentoScreen(onVoltar = { navController.popBackStack() })
                         }
                     }
                 }

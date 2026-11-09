@@ -15,20 +15,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 
-// Importação dos componentes Material 3 (botões, textos e a janela de aviso).
-import androidx.compose.material3.AlertDialog
+// Importação dos componentes Material 3 (botões e textos).
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 
-// Importação das ferramentas de estado (lembrar se o aviso está aberto).
+// Importação da marca de função desenhável do Compose.
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 
 // Importação de alinhamento, cores, prévia e medidas.
 import androidx.compose.ui.Alignment
@@ -48,17 +42,16 @@ import com.team05.sarc.ui.theme.SarcNavyDark
 
 /**
  * Painel do Docente (Sprint 03): a tela que aparece depois do "Entrar".
- * Versão MVP: título, botão "Novo acionamento" (só um aviso), legenda dos níveis,
- * lista "Meus acionamentos" vazia e botão "Sair".
+ * Versão MVP: título, botão "Novo acionamento" (abre o formulário da Sprint 04),
+ * legenda dos níveis, lista "Meus acionamentos" vazia e botão "Sair".
  */
 @Composable
 fun HomeDocenteScreen(
     // Ação do botão "Sair": quem chama (o NavHost) decide para onde ir.
-    onSair: () -> Unit = {}
+    onSair: () -> Unit = {},
+    // Ação do botão "Novo acionamento": o NavHost abre o formulário.
+    onNovoAcionamento: () -> Unit = {}
 ) {
-    // FR-06: guarda se o aviso "Novo acionamento" está aberto (começa fechado).
-    var showAviso by remember { mutableStateOf(false) }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,9 +68,9 @@ fun HomeDocenteScreen(
         )
         Text(text = "Acione a Coordenação em poucos toques")
 
-        // FR-06: botão que abre o aviso.
+        // Botão que abre o formulário "Novo acionamento" (Sprint 04).
         Button(
-            onClick = { showAviso = true },
+            onClick = onNovoAcionamento,
             modifier = Modifier.fillMaxWidth().height(48.dp)
         ) {
             Text("Novo acionamento")
@@ -90,7 +83,7 @@ fun HomeDocenteScreen(
         NivelLegenda(cor = PriorityOrange, nome = "Nível 3 - Prioridade Operacional")
         NivelLegenda(cor = PriorityRed, nome = "Nível 4 - Urgência Crítica")
 
-        // FR-05: lista vazia (os acionamentos chegam na Sprint 04).
+        // FR-05: lista vazia (os acionamentos chegam na Sprint 05).
         Text(text = "Meus acionamentos", fontWeight = FontWeight.Bold)
         Text(text = "Nenhum acionamento ainda")
 
@@ -103,18 +96,6 @@ fun HomeDocenteScreen(
         ) {
             Text("Sair")
         }
-    }
-
-    // FR-06: o aviso só aparece quando showAviso é verdadeiro.
-    if (showAviso) {
-        AlertDialog(
-            onDismissRequest = { showAviso = false }, // Tocar fora do aviso também fecha.
-            title = { Text("Novo acionamento") },
-            text = { Text("O formulário de acionamento chega na Sprint 04") },
-            confirmButton = {
-                TextButton(onClick = { showAviso = false }) { Text("Entendi") }
-            }
-        )
     }
 }
 

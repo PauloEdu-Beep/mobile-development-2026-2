@@ -15,7 +15,7 @@
         android:theme="@style/Theme.SARC">
         <!-- A tela principal do app (arquivo MainActivity.kt). -->
         <!-- adjustResize: pede ao Android para abrir espaço para o teclado. Como a MainActivity usa enableEdgeToEdge, -->
-        <!-- no Compose isso só tem efeito com Modifier.imePadding(), que ainda não é usado na tela. -->
+        <!-- no Compose isso trabalha em conjunto com o Modifier.imePadding() usado no formulário. -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
