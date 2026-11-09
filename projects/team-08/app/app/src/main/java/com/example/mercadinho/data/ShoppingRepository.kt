@@ -71,6 +71,10 @@ class ShoppingRepository(context: Context) {
         prefs.edit().putString(KEY_ITEMS, jsonArray.toString()).apply()
     }
 
+    fun clearShoppingItems() {
+        saveShoppingItems(emptyList())
+    }
+
     fun savePurchase(purchase: PurchaseRecord) {
         val current = loadPurchases().toMutableList()
         current.add(0, purchase)
@@ -116,5 +120,23 @@ class ShoppingRepository(context: Context) {
 
     fun loadLastPurchase(): PurchaseRecord? {
         return loadPurchases().firstOrNull()
+    }
+
+    fun addItemsFromRecipe(ingredientNames: List<String>): Int {
+        val current = loadShoppingItems().toMutableList()
+        var maxId = current.maxOfOrNull { it.id } ?: 0
+        var addedCount = 0
+        for (name in ingredientNames) {
+            val trimmed = name.trim()
+            if (trimmed.isNotBlank() && current.none { it.name.equals(trimmed, ignoreCase = true) }) {
+                maxId++
+                current.add(ShoppingItem(maxId, trimmed, false))
+                addedCount++
+            }
+        }
+        if (addedCount > 0) {
+            saveShoppingItems(current)
+        }
+        return addedCount
     }
 }
