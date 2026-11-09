@@ -5,4 +5,6 @@ plugins {
     alias(libs.plugins.android.application) apply false
     // Plugin do compilador Kotlin para o Jetpack Compose (transforma as funções @Composable em telas).
     alias(libs.plugins.kotlin.compose) apply false
+    // Plugin KSP: gera o código do Room durante a compilação (Sprint 05).
+    alias(libs.plugins.ksp) apply false
 }

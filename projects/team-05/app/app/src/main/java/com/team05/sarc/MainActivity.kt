@@ -13,7 +13,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 
 // Importação da navegação entre telas (Sprint 03).
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.NavHost
+import com.team05.sarc.data.AcionamentoDatabase
+import com.team05.sarc.data.AcionamentoEntity
+import kotlinx.coroutines.launch
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
@@ -47,6 +54,9 @@ class MainActivity : ComponentActivity() {
                 ) {
                     // Sprint 03: o NavController lembra em qual tela o usuário está.
                     val navController = rememberNavController()
+                    // Sprint 05: abre o banco (uma vez) e cria os "bastidores" onde ele trabalha sem travar a tela.
+                    val dao = remember { AcionamentoDatabase.abrir(applicationContext).dao() }
+                    val scope = rememberCoroutineScope()
 
                     // O NavHost é o "mapa" das telas: 3 rotas, começando no Login ("welcome").
                     NavHost(navController = navController, startDestination = "welcome") {
@@ -61,17 +71,30 @@ class MainActivity : ComponentActivity() {
 
                         // Rota "home": o Painel do Docente (ui/screens/HomeDocenteScreen.kt).
                         composable("home") {
+                            // Sprint 05: "assina" a tabela; a lista chega atualizada sozinha a cada mudança.
+                            val acionamentos by dao.listarTodos().collectAsState(initial = emptyList())
                             HomeDocenteScreen(
                                 // "Sair" tira o painel da pilha e volta ao Login.
                                 onSair = { navController.popBackStack() },
                                 // "Novo acionamento" abre o formulário (Sprint 04).
-                                onNovoAcionamento = { navController.navigate("novo-acionamento") }
+                                onNovoAcionamento = { navController.navigate("novo-acionamento") },
+                                // Sprint 05: lista salva no banco e botão "Resolvido" (FR-03 e FR-05).
+                                acionamentos = acionamentos,
+                                onResolvido = { id -> scope.launch { dao.marcarResolvido(id) } }
                             )
                         }
 
                         // Rota "novo-acionamento": o formulário. Cancelar e OK voltam ao painel.
                         composable("novo-acionamento") {
-                            NovoAcionamentoScreen(onVoltar = { navController.popBackStack() })
+                            NovoAcionamentoScreen(
+                                onVoltar = { navController.popBackStack() },
+                                // Sprint 05 (FR-02): o "Enviar" válido grava a mensagem com a data e hora de agora.
+                                onEnviar = { msg ->
+                                    scope.launch {
+                                        dao.salvar(AcionamentoEntity(mensagem = msg, dataHora = System.currentTimeMillis()))
+                                    }
+                                }
+                            )
                         }
                     }
                 }

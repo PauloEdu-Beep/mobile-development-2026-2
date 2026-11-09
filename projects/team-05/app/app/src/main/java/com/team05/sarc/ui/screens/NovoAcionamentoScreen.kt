@@ -76,7 +76,7 @@ private fun validar(nivel: String, turma: String, sala: String, situacao: String
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun NovoAcionamentoScreen(onVoltar: () -> Unit = {}) {
+fun NovoAcionamentoScreen(onVoltar: () -> Unit = {}, onEnviar: (String) -> Unit = {}) {
     // FR-02: os 4 campos, guardados em rememberSaveable (sobrevivem a girar o celular).
     var nivel by rememberSaveable { mutableStateOf("") }
     var turma by rememberSaveable { mutableStateOf("") }
@@ -86,6 +86,8 @@ fun NovoAcionamentoScreen(onVoltar: () -> Unit = {}) {
     var aceito by rememberSaveable { mutableStateOf(false) }       // Mostra o aviso de sucesso.
 
     val erros = validar(nivel, turma, sala, situacao) // Reconferido a cada mudança: o aviso some ao corrigir.
+    // A mensagem pronta do protocolo (usada no aviso de sucesso e salva no banco na Sprint 05).
+    val mensagem = "$nivel | $turma | Sala $sala | ${situacao.trim().ifEmpty { "Solicito apoio." }}"
 
     Column(
         modifier = Modifier
@@ -140,7 +142,7 @@ fun NovoAcionamentoScreen(onVoltar: () -> Unit = {}) {
             Button(
                 onClick = {
                     tentouEnviar = true
-                    if (!erros.temErro) aceito = true // FR-04: só aceita se não há nenhum erro.
+                    if (!erros.temErro) { onEnviar(mensagem); aceito = true } // FR-04 e Sprint 05 (FR-02): só aceita e salva se não há erro.
                 },
                 modifier = Modifier.weight(1f)
             ) { Text("Enviar") }
@@ -149,11 +151,10 @@ fun NovoAcionamentoScreen(onVoltar: () -> Unit = {}) {
 
     // FR-04: aviso de sucesso com a mensagem pronta; "OK" volta ao Painel.
     if (aceito) {
-        val texto = situacao.trim().ifEmpty { "Solicito apoio." }
         AlertDialog(
             onDismissRequest = onVoltar,
             title = { Text("Acionamento pronto") },
-            text = { Text("$nivel | $turma | Sala $sala | $texto") },
+            text = { Text(mensagem) },
             confirmButton = { TextButton(onClick = onVoltar) { Text("OK") } }
         )
     }

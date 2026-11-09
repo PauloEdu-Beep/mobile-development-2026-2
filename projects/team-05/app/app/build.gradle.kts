@@ -3,6 +3,7 @@
 plugins {
     alias(libs.plugins.android.application) // Este módulo é um aplicativo Android (gera o APK).
     alias(libs.plugins.kotlin.compose)      // Ativa o compilador do Jetpack Compose para as telas.
+    alias(libs.plugins.ksp)                 // Gera o código do Room na compilação (Sprint 05).
 }
 
 android {
@@ -53,6 +54,9 @@ dependencies {
     implementation(libs.androidx.core.ktx)                        // Atalhos Kotlin para o Android (inclui o enableEdgeToEdge).
     implementation(libs.androidx.lifecycle.runtime.ktx)           // Ciclo de vida da tela (quando abre, pausa, fecha).
     implementation(libs.androidx.navigation.compose)              // Navegação entre telas: NavHost e NavController (Sprint 03).
+    implementation(libs.androidx.room.runtime)                    // Room: o banco de dados local (Sprint 05).
+    implementation(libs.androidx.room.ktx)                        // Room com coroutines e Flow (Sprint 05).
+    ksp(libs.androidx.room.compiler)                              // Gera o código do banco a partir das anotações (Sprint 05).
     testImplementation(libs.junit)                                // Testes de unidade no computador.
     androidTestImplementation(platform(libs.androidx.compose.bom)) // Mesmas versões do Compose para os testes.
     androidTestImplementation(libs.androidx.compose.ui.test.junit4) // Testes de tela do Compose no emulador.

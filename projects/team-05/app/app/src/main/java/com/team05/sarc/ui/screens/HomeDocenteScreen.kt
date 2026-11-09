@@ -13,7 +13,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.TextButton
+import com.team05.sarc.data.AcionamentoEntity
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 // Importação dos componentes Material 3 (botões e textos).
 import androidx.compose.material3.Button
@@ -50,7 +58,10 @@ fun HomeDocenteScreen(
     // Ação do botão "Sair": quem chama (o NavHost) decide para onde ir.
     onSair: () -> Unit = {},
     // Ação do botão "Novo acionamento": o NavHost abre o formulário.
-    onNovoAcionamento: () -> Unit = {}
+    onNovoAcionamento: () -> Unit = {},
+    // Sprint 05: a lista vinda do banco e a ação do botão "Resolvido".
+    acionamentos: List<AcionamentoEntity> = emptyList(),
+    onResolvido: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -83,11 +94,13 @@ fun HomeDocenteScreen(
         NivelLegenda(cor = PriorityOrange, nome = "Nível 3 - Prioridade Operacional")
         NivelLegenda(cor = PriorityRed, nome = "Nível 4 - Urgência Crítica")
 
-        // FR-05: lista vazia (os acionamentos chegam na Sprint 05).
+        // FR-05 (Sprint 03) e FR-03 (Sprint 05): a lista salva no banco; vazia, mostra o aviso.
         Text(text = "Meus acionamentos", fontWeight = FontWeight.Bold)
-        Text(text = "Nenhum acionamento ainda")
-
-        Spacer(modifier = Modifier.weight(1f)) // Empurra o "Sair" para o fim da tela.
+        if (acionamentos.isEmpty()) Text(text = "Nenhum acionamento ainda")
+        // Lista que rola e ocupa o espaço livre (o que também empurra o "Sair" para o fim da tela).
+        LazyColumn(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            items(acionamentos) { item -> AcionamentoItem(item, onResolvido) }
+        }
 
         // FR-07: botão "Sair" volta ao Login.
         OutlinedButton(
@@ -121,5 +134,23 @@ fun NivelLegenda(cor: Color, nome: String) {
 fun HomeDocenteScreenPreview() {
     SARCTheme {
         HomeDocenteScreen()
+    }
+}
+
+// Como a data e hora aparecem na lista (ex.: 09/11/2026 14:32).
+private val formatoData = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.forLanguageTag("pt-BR"))
+
+// Um cartão por acionamento: data e hora, mensagem e o botão "Resolvido" (FR-03 e FR-05).
+@Composable
+private fun AcionamentoItem(item: AcionamentoEntity, onResolvido: (Int) -> Unit) {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(formatoData.format(Date(item.dataHora)), style = MaterialTheme.typography.labelSmall)
+                Text(item.mensagem)
+            }
+            if (item.resolvido) Text("✓ Resolvido", color = PriorityGreen, fontWeight = FontWeight.Bold)
+            else TextButton(onClick = { onResolvido(item.id) }) { Text("Resolvido") }
+        }
     }
 }
